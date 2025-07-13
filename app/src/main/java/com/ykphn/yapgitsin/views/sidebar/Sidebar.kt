@@ -15,11 +15,12 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavController
 import com.ykphn.yapgitsin.data.SidebarItem
 
 @Composable
-fun Sidebar(navController: NavController, onItemClick: () -> Unit) {
+fun Sidebar(
+    onNavigate: (String) -> Unit
+) {
     Column(
         modifier = Modifier
             .windowInsetsPadding(WindowInsets.statusBars)
@@ -35,25 +36,20 @@ fun Sidebar(navController: NavController, onItemClick: () -> Unit) {
                     title = "Home",
                     contentDescription = "Home",
                     icon = Icons.Default.Home
-                ),
-                SidebarItem(
+                ), SidebarItem(
                     id = "food",
-                    title = "food",
-                    contentDescription = "food",
+                    title = "Food",
+                    contentDescription = "Food",
                     icon = Icons.Default.ShoppingCart
-                ),
-                SidebarItem(
+                ), SidebarItem(
                     id = "receipt/1",
-                    title = "receipt",
-                    contentDescription = "receipt",
+                    title = "Receipt",
+                    contentDescription = "Receipt",
                     icon = Icons.Default.DateRange
                 )
-            ),
-            onItemClick = {
-                Log.d("Sidebar", "Clicked on ${it.title}")
-                navController.navigate(it.id)
-                onItemClick()
-            }
-        )
+            ), onItemClick = { item ->
+                Log.d("Sidebar", "Clicked on ${item.title}")
+                onNavigate(item.id)
+            })
     }
 }

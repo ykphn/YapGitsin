@@ -18,13 +18,10 @@ import androidx.navigation.navigation
 
 @Composable
 fun SidebarNavGraph(
-    modifier: Modifier = Modifier,
-    navHostController: NavHostController
+    modifier: Modifier = Modifier, navHostController: NavHostController
 ) {
     NavHost(
-        modifier = modifier,
-        navController = navHostController,
-        startDestination = "home"
+        modifier = modifier, navController = navHostController, startDestination = "home"
     ) {
         navigation(route = "home", startDestination = "food") {
 
@@ -36,8 +33,7 @@ fun SidebarNavGraph(
                 ) {
                     Text(text = "Food Screen", color = Color.White)
                     Button(
-                        onClick = { navHostController.navigate("receipt/0") }
-                    ) {
+                        onClick = { navHostController.navigate("receipt/0") }) {
                         Text(text = "Go to Receipt with ID 0")
                     }
                 }
@@ -57,8 +53,7 @@ fun SidebarNavGraph(
                     Text(text = "Receipt Screen", color = Color.White)
                     Text(text = "Receipt ID: $receiptId", color = Color.White)
                     Button(
-                        onClick = { navHostController.navigate("food") }
-                    ) {
+                        onClick = { navHostController.navigate("food") }) {
                         Text(text = "Back to Food")
                     }
                 }

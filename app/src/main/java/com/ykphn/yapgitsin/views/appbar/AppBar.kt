@@ -11,7 +11,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.ykphn.yapgitsin.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,17 +21,14 @@ fun AppBar(
     TopAppBar(
         title = {
             Text(text = stringResource(id = R.string.app_name))
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Red,        // Arka plan rengi
-            titleContentColor = Color.White,    // Başlık (text) rengi
-            navigationIconContentColor = Color.White,  // Geri butonu, ikon rengi vs.
-            actionIconContentColor = Color.White       // Aksiyon ikonları (örn. arama, ayarlar) rengi
-        ),
-        navigationIcon = {
+        }, colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color.Red,
+            titleContentColor = Color.White,
+            navigationIconContentColor = Color.White,
+            actionIconContentColor = Color.White
+        ), navigationIcon = {
             IconButton(onClick = onNavigationIconClick) {
                 Icon(imageVector = Icons.Default.Menu, contentDescription = "Toggle drawer")
             }
-        }
-    )
+        })
 }

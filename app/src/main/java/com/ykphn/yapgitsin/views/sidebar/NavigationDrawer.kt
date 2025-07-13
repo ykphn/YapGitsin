@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,8 +19,7 @@ import com.ykphn.yapgitsin.data.SidebarItem
 @Composable
 fun SidebarHeader() {
     Box(
-        modifier = Modifier
-            .padding(32.dp)
+        modifier = Modifier.padding(32.dp)
     ) {
         Text(text = "Header", fontSize = 32.sp)
     }
@@ -29,27 +27,21 @@ fun SidebarHeader() {
 
 @Composable
 fun SidebarBody(
-    modifier: Modifier = Modifier,
-    items: List<SidebarItem>,
-    onItemClick: (SidebarItem) -> Unit
+    modifier: Modifier = Modifier, items: List<SidebarItem>, onItemClick: (SidebarItem) -> Unit
 ) {
     LazyColumn(modifier) {
         items(items) { item ->
-            Row (
-                modifier = Modifier
-                    .clickable {
-                        onItemClick(item)
-                    }
-                    .padding(16.dp)
-            ) {
+            Row(modifier = Modifier
+                .clickable {
+                    onItemClick(item)
+                }
+                .padding(16.dp)) {
                 Icon(
-                    imageVector = item.icon,
-                    contentDescription = item.contentDescription
+                    imageVector = item.icon, contentDescription = item.contentDescription
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    modifier = Modifier.weight(1f),
-                    text = item.title
+                    modifier = Modifier.weight(1f), text = item.title
                 )
             }
         }
