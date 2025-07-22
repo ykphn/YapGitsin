@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.data
+package com.ykphn.yapgitsin.data.model
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

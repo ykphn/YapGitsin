@@ -18,6 +18,17 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            type = "String",
+            name ="SUPABASE_API_KEY",
+            value = "\"${project.findProperty("SUPABASE_API_KEY")}\""
+        )
+        buildConfigField(
+            type = "String",
+            name = "SUPABASE_BASE_URL",
+            value =  "\"${project.findProperty("SUPABASE_BASE_URL")}\""
+        )
     }
 
     buildTypes {
@@ -38,6 +49,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -54,6 +66,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics) // Compose graphics library
     implementation(libs.androidx.ui.tooling.preview) // Tooling for Compose UI preview
     implementation(libs.androidx.material3) // Material Design 3 components for Compose
+    implementation(libs.coil.compose) // Coil image loading for Compose
+    implementation(libs.coil.network) // Coil image loading for Compose
 
     // Testing libraries
     testImplementation(libs.junit) // JUnit for unit testing
@@ -73,12 +87,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose) // ViewModel support in Compose
     implementation(libs.androidx.hilt.navigation.compose) // Hilt navigation for Compose
 
-    // Scanner dependencies
-    implementation(libs.mlkit.document.scanner) // ML Kit Document Scanner
-    implementation(libs.coil.compose) // Coil image loading for Compose
-
-    // Room Database
-    implementation(libs.androidx.room.runtime) // Room database runtime
-    ksp(libs.androidx.room.compiler) // Room annotation processor
-    implementation(libs.androidx.room.ktx) // Room KTX extensions
+    // Retrofit
+    implementation(libs.retrofit.base) // Retrofit library)
+    implementation(libs.retrofit.gson) // Gson converter for Retrofit)
 }

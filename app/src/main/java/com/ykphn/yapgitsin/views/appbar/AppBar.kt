@@ -7,9 +7,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.ykphn.yapgitsin.R
 
@@ -18,17 +16,11 @@ import com.ykphn.yapgitsin.R
 fun AppBar(
     onNavigationIconClick: () -> Unit
 ) {
-    TopAppBar(
-        title = {
-            Text(text = stringResource(id = R.string.app_name))
-        }, colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Red,
-            titleContentColor = Color.White,
-            navigationIconContentColor = Color.White,
-            actionIconContentColor = Color.White
-        ), navigationIcon = {
-            IconButton(onClick = onNavigationIconClick) {
-                Icon(imageVector = Icons.Default.Menu, contentDescription = "Toggle drawer")
-            }
-        })
+    TopAppBar(title = {
+        Text(text = stringResource(id = R.string.app_name))
+    }, navigationIcon = {
+        IconButton(onClick = onNavigationIconClick) {
+            Icon(imageVector = Icons.Default.Menu, contentDescription = "Toggle drawer")
+        }
+    })
 }
