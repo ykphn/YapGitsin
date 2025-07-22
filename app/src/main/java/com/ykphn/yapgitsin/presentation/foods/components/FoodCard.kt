@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.views.foods.components
+package com.ykphn.yapgitsin.presentation.foods.components
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.ykphn.yapgitsin.views.foods.model.Foods
+import com.ykphn.yapgitsin.presentation.foods.model.Foods
 
 @Composable
 fun FoodCard(foods: Foods, onClick: (Int) -> Unit) {

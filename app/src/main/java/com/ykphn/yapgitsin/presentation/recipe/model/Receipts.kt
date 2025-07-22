@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.views.recipe.model
+package com.ykphn.yapgitsin.presentation.recipe.model
 
 data class Receipts (
     val id: Int,

@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.views.root
+package com.ykphn.yapgitsin.presentation.root
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerValue
@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.ykphn.yapgitsin.core.navigation.SidebarNavGraph
-import com.ykphn.yapgitsin.views.appbar.AppBar
-import com.ykphn.yapgitsin.views.sidebar.Sidebar
+import com.ykphn.yapgitsin.presentation.layouts.AppBar
+import com.ykphn.yapgitsin.presentation.layouts.sidebar.Sidebar
 
 @Composable
 fun YapGitsinRoot(viewModel: YapGitsinViewModel = hiltViewModel()) {

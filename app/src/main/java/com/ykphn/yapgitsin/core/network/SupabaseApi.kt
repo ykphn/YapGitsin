@@ -6,7 +6,6 @@ import com.ykphn.yapgitsin.data.model.FoodDTO
 import retrofit2.http.GET
 
 interface SupabaseApi {
-
     @GET("categories")
     suspend fun getCategories(): List<CategoriesDTO>
     @GET("foods")

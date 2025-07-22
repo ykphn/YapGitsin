@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.views.root
+package com.ykphn.yapgitsin.presentation.root
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -11,8 +11,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.ykphn.yapgitsin.views.foods.FoodListScreen
-import com.ykphn.yapgitsin.views.recipe.ReceiptScreen
+import com.ykphn.yapgitsin.presentation.foods.FoodListScreen
+import com.ykphn.yapgitsin.presentation.recipe.ReceiptScreen
 
 
 @Composable

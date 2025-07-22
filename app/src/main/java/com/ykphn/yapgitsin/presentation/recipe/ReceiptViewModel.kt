@@ -1,9 +1,9 @@
-package com.ykphn.yapgitsin.views.recipe
+package com.ykphn.yapgitsin.presentation.recipe
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ykphn.yapgitsin.data.repository.FoodRepository
-import com.ykphn.yapgitsin.views.recipe.model.Receipts
+import com.ykphn.yapgitsin.data.repository.FoodRepositoryImp
+import com.ykphn.yapgitsin.presentation.recipe.model.Receipts
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReceiptViewModel @Inject constructor(
-    private val repository: FoodRepository
+    private val repository: FoodRepositoryImp
 ) : ViewModel() {
     init {
         fetchFoods()

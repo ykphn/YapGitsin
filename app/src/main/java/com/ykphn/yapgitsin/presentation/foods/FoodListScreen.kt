@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.views.foods
+package com.ykphn.yapgitsin.presentation.foods
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.ykphn.yapgitsin.views.foods.components.CategorySelector
-import com.ykphn.yapgitsin.views.foods.components.FoodCard
+import com.ykphn.yapgitsin.presentation.foods.components.CategorySelector
+import com.ykphn.yapgitsin.presentation.foods.components.FoodCard
 
 @Composable
 fun FoodListScreen(modifier: Modifier = Modifier, navController: NavHostController) {

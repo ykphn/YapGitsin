@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.ykphn.yapgitsin.ui.theme.YapGitsinTheme
-import com.ykphn.yapgitsin.views.root.YapGitsinRoot
+import com.ykphn.yapgitsin.presentation.root.YapGitsinRoot
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

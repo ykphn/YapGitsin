@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.views.sidebar
+package com.ykphn.yapgitsin.presentation.layouts.sidebar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

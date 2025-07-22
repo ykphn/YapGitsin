@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.views.foods.components
+package com.ykphn.yapgitsin.presentation.foods.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.ykphn.yapgitsin.views.foods.model.Categories
+import com.ykphn.yapgitsin.presentation.foods.model.Categories
 
 
 @Composable

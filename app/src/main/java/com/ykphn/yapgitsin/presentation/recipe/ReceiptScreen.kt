@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.views.recipe
+package com.ykphn.yapgitsin.presentation.recipe
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
