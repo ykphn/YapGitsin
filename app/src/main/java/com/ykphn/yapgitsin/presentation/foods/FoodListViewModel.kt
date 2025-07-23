@@ -2,8 +2,9 @@ package com.ykphn.yapgitsin.presentation.foods
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ykphn.yapgitsin.core.common.state.UiState
 import com.ykphn.yapgitsin.presentation.foods.model.Foods
-import com.ykphn.yapgitsin.data.repository.FoodRepositoryImp
+import com.ykphn.yapgitsin.domain.repository.FoodRepository
 import com.ykphn.yapgitsin.presentation.foods.model.Categories
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,54 +15,53 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FoodListViewModel @Inject constructor(
-    private val repository: FoodRepositoryImp
+    private val repository: FoodRepository
 ) : ViewModel() {
-
-    init {
-        fetchCategories()
-        fetchFoods()
-    }
-
     private val _allCategoriesSelected = MutableStateFlow(value = true)
     val allCategoriesSelected: StateFlow<Boolean> = _allCategoriesSelected.asStateFlow()
     private val _categories = MutableStateFlow<List<Categories>>(emptyList())
     val categories: StateFlow<List<Categories>> = _categories.asStateFlow()
     private val _foods = MutableStateFlow<List<Foods>>(emptyList())
     val foods: StateFlow<List<Foods>> = _foods.asStateFlow()
-    private val _error = MutableStateFlow<String?>(null)
-    val error: StateFlow<String?> = _error
+    private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
+    val uiState: StateFlow<UiState> = _uiState
 
-    fun fetchCategories() {
+    init {
+        loadInitialData()
+    }
+
+    private fun loadInitialData() {
         viewModelScope.launch {
-            val result = repository.getAllCategories()
-            result.onSuccess {
-                _categories.value = it.map { category ->
-                    Categories(
-                        id = category.id, name = category.name, isSelected = true
-                    )
-                }
-            }.onFailure { _error.value = it.message }
+            _uiState.value = UiState.Loading
+
+            val categoriesResult = loadCategories()
+            val foodsResult = loadFoods()
+
+            if (categoriesResult && foodsResult) {
+                _uiState.value = UiState.Success
+            } else {
+                _uiState.value = UiState.Error
+            }
         }
     }
 
-    fun fetchFoods() {
-        viewModelScope.launch {
-            val result = repository.getAllFoods()
-            result.onSuccess {
-                _foods.value = it.map { food ->
-                    Foods(
-                        id = food.id,
-                        categoryId = food.categoryId,
-                        name = food.name,
-                        imageUrl = food.imageUrl,
-                        time = food.time,
-                        servings = food.servings
-                    )
-                }
-            }.onFailure { _error.value = it.message }
-        }
+    private suspend fun loadCategories(): Boolean {
+        val result = repository.getAllCategories()
+        return result.onSuccess {
+            _categories.value = it.map { dto -> Categories(dto.id, dto.name, true) }
+        }.isSuccess
     }
 
+    private suspend fun loadFoods(): Boolean {
+        val result = repository.getAllFoods()
+        return result.onSuccess {
+            _foods.value = it.map { dto ->
+                Foods(
+                    dto.id, dto.categoryId, dto.name, dto.imageUrl, dto.time, dto.servings
+                )
+            }
+        }.isSuccess
+    }
     fun selectAllCategories() {
         _allCategoriesSelected.value = true
         _categories.value = _categories.value.map { category ->
@@ -82,5 +82,7 @@ class FoodListViewModel @Inject constructor(
                 else category
             }
         }
+        val isAllSelect = _categories.value.all { it.isSelected }
+        _allCategoriesSelected.value = isAllSelect
     }
 }

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,17 +20,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 
-        buildConfigField(
-            type = "String",
-            name ="SUPABASE_API_KEY",
-            value = "\"${project.findProperty("SUPABASE_API_KEY")}\""
-        )
-        buildConfigField(
-            type = "String",
-            name = "SUPABASE_BASE_URL",
-            value =  "\"${project.findProperty("SUPABASE_BASE_URL")}\""
-        )
+    val localProperties = Properties()
+    val localPropertiesFile = File(rootDir, "local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use {
+            localProperties.load(it)
+        }
     }
 
     buildTypes {
@@ -38,6 +37,21 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {
+            buildConfigField(
+                type = "String",
+                name = "SUPABASE_BASE_URL",
+                value = "\"${localProperties.getProperty("SUPABASE_BASE_URL")}\""
+            )
+
+            buildConfigField(
+                type = "String",
+                name = "SUPABASE_API_KEY",
+                value = "\"${localProperties.getProperty("SUPABASE_API_KEY")}\""
+            )
+
         }
     }
     compileOptions {

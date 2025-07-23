@@ -1,6 +1,5 @@
 package com.ykphn.yapgitsin.presentation.foods.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -47,11 +46,6 @@ fun FoodCard(foods: Foods, onClick: (Int) -> Unit) {
             val request = ImageRequest.Builder(LocalContext.current)
                 .data(foods.imageUrl)
                 .crossfade(true)
-                .listener(
-                    onStart = { Log.d("Coil", "Yükleme başladı") },
-                    onSuccess = { _, _ -> Log.d("Coil", "Başarılı") },
-                    onError = { _, throwable -> Log.e("Coil", "Hata: ${throwable.throwable.message}") }
-                )
                 .build()
 
             AsyncImage(
