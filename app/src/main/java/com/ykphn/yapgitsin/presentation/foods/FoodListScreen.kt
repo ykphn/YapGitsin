@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ykphn.yapgitsin.core.common.state.UiState
-import com.ykphn.yapgitsin.presentation.foods.screens.FoodListLoadingScreen
+import com.ykphn.yapgitsin.presentation.foods.components.LoadingScreen
 import com.ykphn.yapgitsin.presentation.foods.screens.FoodListSuccessScreen
 
 @Composable
@@ -25,7 +25,7 @@ fun FoodListScreen(modifier: Modifier = Modifier, navController: NavHostControll
         }
 
         UiState.Loading -> {
-            FoodListLoadingScreen(
+            LoadingScreen(
                 modifier = modifier
             )
         }

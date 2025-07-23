@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.foods.screens
+package com.ykphn.yapgitsin.presentation.foods.components
 
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
@@ -25,15 +25,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun FoodListLoadingScreen(modifier: Modifier = Modifier) {
+fun LoadingScreen(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Companion.Center
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.Companion.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             // Dönen loading animasyonu
@@ -42,7 +42,7 @@ fun FoodListLoadingScreen(modifier: Modifier = Modifier) {
                 color = MaterialTheme.colorScheme.primary
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.Companion.height(24.dp))
 
             // Fade ile yavaşça görünen yazı
             var alpha by remember { mutableFloatStateOf(0f) }
@@ -62,7 +62,7 @@ fun FoodListLoadingScreen(modifier: Modifier = Modifier) {
                 text = "Yükleniyor",
                 fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.alpha(alpha)
+                modifier = Modifier.Companion.alpha(alpha)
             )
         }
     }

@@ -2,6 +2,7 @@ package com.ykphn.yapgitsin.presentation.recipe
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ykphn.yapgitsin.core.common.state.UiState
 import com.ykphn.yapgitsin.data.repository.FoodRepositoryImp
 import com.ykphn.yapgitsin.presentation.recipe.model.Receipts
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,21 +16,28 @@ import javax.inject.Inject
 class ReceiptViewModel @Inject constructor(
     private val repository: FoodRepositoryImp
 ) : ViewModel() {
-    init {
-        fetchFoods()
-    }
-
     private val _receiptList = MutableStateFlow<List<Receipts>>(emptyList())
-    val receiptList: StateFlow<List<Receipts>> = _receiptList.asStateFlow()
     private val _receipt = MutableStateFlow<Receipts?>(null)
     val receipt: StateFlow<Receipts?> = _receipt.asStateFlow()
+    private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
+    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
-    private val _error = MutableStateFlow<String?>(null)
-
-    private fun fetchFoods() {
+    fun loadInitialData(receiptId: Int) {
         viewModelScope.launch {
+            _uiState.value = UiState.Loading
+            val foodsResult = loadFoods()
+            if (foodsResult) {
+                _uiState.value = UiState.Success
+                getReceipt(receiptId)
+            } else {
+                _uiState.value = UiState.Error
+            }
+        }
+    }
+
+    private suspend fun loadFoods(): Boolean {
             val result = repository.getAllFoods()
-            result.onSuccess {
+            return result.onSuccess {
                 _receiptList.value = it.map { food ->
                     Receipts(
                         id = food.id,
@@ -42,11 +50,11 @@ class ReceiptViewModel @Inject constructor(
                         servings = food.servings
                     )
                 }
-            }.onFailure { _error.value = it.message }
-        }
+                _uiState.value = UiState.Success
+            }.isSuccess
     }
 
-    fun getReceipt(index: Int) {
+    private fun getReceipt(index: Int) {
         _receipt.value = _receiptList.value.find { food -> food.id == index }
     }
 
