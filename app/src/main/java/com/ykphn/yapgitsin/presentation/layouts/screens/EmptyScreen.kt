@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.foods.components
+package com.ykphn.yapgitsin.presentation.layouts.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
@@ -35,7 +36,6 @@ fun ReceiptSuccessScreen(
                 .padding(bottom = 16.dp)
         )
 
-
         Text(
             text = receipt.name,
             fontSize = 24.sp,
@@ -48,7 +48,6 @@ fun ReceiptSuccessScreen(
             fontSize = 16.sp,
             modifier = Modifier.padding(bottom = 16.dp)
         )
-
 
         Row(
             modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
@@ -93,3 +92,25 @@ fun ReceiptSuccessScreen(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun ReceiptSuccessScreenPreview() {
+    val dummy = Receipts(
+        id = 1,
+        name = "Lorem Ipsum Yemeği",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        recipe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        ingredients = listOf(
+            "Lorem ingredient 1",
+            "Lorem ingredient 2",
+            "Lorem ingredient 3",
+            "Lorem ingredient 4"
+        ),
+        imageUrl = "",
+        time = "30 dk",
+        servings = "2 kişilik",
+    )
+    ReceiptSuccessScreen(receipt = dummy)
+}
+

@@ -6,7 +6,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ykphn.yapgitsin.core.common.state.UiState
-import com.ykphn.yapgitsin.presentation.foods.components.EmptyScreen
+import com.ykphn.yapgitsin.presentation.layouts.screens.EmptyScreen
+import com.ykphn.yapgitsin.presentation.layouts.screens.ErrorScreen
 import com.ykphn.yapgitsin.presentation.recipe.screens.ReceiptSuccessScreen
 
 @Composable
@@ -20,11 +21,12 @@ fun ReceiptScreen(
     viewModel.loadInitialData(receiptId)
 
     when (uiState) {
-        UiState.Error -> {}
+        UiState.Error -> {
+            ErrorScreen(modifier = modifier)
+        }
         UiState.Loading -> {
             EmptyScreen(modifier = modifier)
         }
-
         UiState.Success -> {
             ReceiptSuccessScreen(
                 modifier = modifier, receipt = receipt!!

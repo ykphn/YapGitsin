@@ -1,6 +1,5 @@
 package com.ykphn.yapgitsin.presentation.foods
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -8,8 +7,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ykphn.yapgitsin.core.common.state.UiState
-import com.ykphn.yapgitsin.presentation.foods.components.LoadingScreen
+import com.ykphn.yapgitsin.presentation.foods.screens.LoadingScreen
 import com.ykphn.yapgitsin.presentation.foods.screens.FoodListSuccessScreen
+import com.ykphn.yapgitsin.presentation.layouts.screens.ErrorScreen
 
 @Composable
 fun FoodListScreen(modifier: Modifier = Modifier, navController: NavHostController) {
@@ -21,7 +21,7 @@ fun FoodListScreen(modifier: Modifier = Modifier, navController: NavHostControll
 
     when (uiState) {
         UiState.Error -> {
-            Text(text = "Hata Oluştu")
+            ErrorScreen(modifier = modifier)
         }
 
         UiState.Loading -> {

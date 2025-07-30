@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.foods.components
+package com.ykphn.yapgitsin.presentation.foods.screens
 
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
