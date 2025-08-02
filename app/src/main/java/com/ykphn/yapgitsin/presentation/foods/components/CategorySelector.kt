@@ -18,7 +18,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.ykphn.yapgitsin.presentation.foods.model.Categories
 
-
 @Composable
 fun CategorySelector(
     allCategoriesSelected: Boolean,
