@@ -1,8 +1,9 @@
 package com.ykphn.yapgitsin.presentation.recipe.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -74,18 +75,24 @@ fun ReceiptSuccessScreen(
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        LazyColumn {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
             items(receipt.ingredients) { ingredient ->
                 OutlinedCard(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp),
-                    elevation = CardDefaults.cardElevation(4.dp)
+                        .padding(0.dp),
+                    elevation = CardDefaults.cardElevation(2.dp)
                 ) {
                     Text(
-                        text = "• $ingredient",
+                        text = ingredient,
                         modifier = Modifier.padding(12.dp),
-                        fontSize = 16.sp
+                        fontSize = 12.sp
                     )
                 }
             }
@@ -98,7 +105,7 @@ fun ReceiptSuccessScreen(
 fun ReceiptSuccessScreenPreview() {
     val dummy = Receipts(
         id = 1,
-        name = "Lorem Ipsum Yemeği",
+        name = "Lorem Ipsum",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         recipe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         ingredients = listOf(

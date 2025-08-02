@@ -37,12 +37,11 @@ fun FoodCard(foods: Foods, onClick: (Int) -> Unit) {
         shape = RoundedCornerShape(16.dp),
         onClick = { onClick(foods.id) }
     ) {
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(12.dp),
         ) {
-
             val request = ImageRequest.Builder(LocalContext.current)
                 .data(foods.imageUrl)
                 .crossfade(true)
@@ -56,7 +55,7 @@ fun FoodCard(foods: Foods, onClick: (Int) -> Unit) {
                     .size(120.dp)
                     .align(Alignment.CenterHorizontally)
                     .clip(RoundedCornerShape(12.dp))
-                )
+            )
 
             Spacer(modifier = Modifier.width(12.dp))
 

@@ -36,26 +36,25 @@ class ReceiptViewModel @Inject constructor(
     }
 
     private suspend fun loadFoods(): Boolean {
-            val result = repository.getAllFoods()
-            return result.onSuccess {
-                _receiptList.value = it.map { food ->
-                    Receipts(
-                        id = food.id,
-                        name = food.name,
-                        description = food.description,
-                        recipe = food.recipe,
-                        ingredients = food.ingredients,
-                        imageUrl = food.imageUrl,
-                        time = food.time,
-                        servings = food.servings
-                    )
-                }
-                _uiState.value = UiState.Success
-            }.isSuccess
+        val result = repository.getAllFoods()
+        return result.onSuccess {
+            _receiptList.value = it.map { food ->
+                Receipts(
+                    id = food.id,
+                    name = food.name,
+                    description = food.description,
+                    recipe = food.recipe,
+                    ingredients = food.ingredients,
+                    imageUrl = food.imageUrl,
+                    time = food.time,
+                    servings = food.servings
+                )
+            }
+            _uiState.value = UiState.Success
+        }.isSuccess
     }
 
     private fun getReceipt(index: Int) {
         _receipt.value = _receiptList.value.find { food -> food.id == index }
     }
-
 }

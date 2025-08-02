@@ -33,7 +33,6 @@ class FoodListViewModel @Inject constructor(
     private fun loadInitialData() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
-
             val categoriesResult = loadCategories()
             val foodsResult = loadFoods()
 
@@ -62,6 +61,7 @@ class FoodListViewModel @Inject constructor(
             }
         }.isSuccess
     }
+
     fun selectAllCategories() {
         _allCategoriesSelected.value = true
         _categories.value = _categories.value.map { category ->

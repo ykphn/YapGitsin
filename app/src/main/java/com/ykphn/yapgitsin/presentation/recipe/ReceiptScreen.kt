@@ -1,6 +1,7 @@
 package com.ykphn.yapgitsin.presentation.recipe
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -18,15 +19,19 @@ fun ReceiptScreen(
     val uiState by viewModel.uiState.collectAsState()
     val receipt by viewModel.receipt.collectAsState()
 
-    viewModel.loadInitialData(receiptId)
+    LaunchedEffect(receiptId) {
+        viewModel.loadInitialData(receiptId)
+    }
 
     when (uiState) {
         UiState.Error -> {
             ErrorScreen(modifier = modifier)
         }
+
         UiState.Loading -> {
             EmptyScreen(modifier = modifier)
         }
+
         UiState.Success -> {
             ReceiptSuccessScreen(
                 modifier = modifier, receipt = receipt!!

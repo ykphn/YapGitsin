@@ -31,7 +31,7 @@ fun FoodListSuccessScreen(
     selectAllCategories: () -> Unit,
     toggleCategorySelection: (Int) -> Unit
 ) {
-    Column  {
+    Column {
         CategorySelector(
             allCategoriesSelected = allCategoriesSelected,
             categories = categories,
@@ -46,8 +46,13 @@ fun FoodListSuccessScreen(
         ) {
             items(categories) {
                 if (it.isSelected) {
-                    Text(modifier = Modifier.padding(16.dp, 0.dp), text = it.name, fontSize = 16.sp, color = MaterialTheme.colorScheme.onBackground)
-                    LazyRow (
+                    Text(
+                        modifier = Modifier.padding(16.dp, 0.dp),
+                        text = it.name,
+                        fontSize = 16.sp,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                    LazyRow(
                         modifier = modifier
                             .wrapContentHeight()
                             .fillMaxWidth()
@@ -65,7 +70,7 @@ fun FoodListSuccessScreen(
                     }
                 }
             }
-            item{} // Empty item to create bottom padding
+            item {} // Empty item to create bottom padding
         }
     }
 }
