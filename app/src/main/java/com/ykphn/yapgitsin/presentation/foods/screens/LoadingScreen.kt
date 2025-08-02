@@ -43,7 +43,6 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
             )
 
             Spacer(modifier = Modifier.Companion.height(24.dp))
-
             // Fade ile yavaşça görünen yazı
             var alpha by remember { mutableFloatStateOf(0f) }
 

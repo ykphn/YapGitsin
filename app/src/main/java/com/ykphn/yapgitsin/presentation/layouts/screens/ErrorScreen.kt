@@ -24,7 +24,6 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-
     ) {
         Image(
             painter = painterResource(id = R.drawable.network_error),
@@ -44,6 +43,5 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Center,
         )
-
     }
 }

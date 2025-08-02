@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.layouts.sidebar
+package com.ykphn.yapgitsin.presentation.layouts.sidebar.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -13,8 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.ykphn.yapgitsin.data.model.SidebarItem
-
+import com.ykphn.yapgitsin.presentation.layouts.sidebar.model.SidebarItem
 
 @Composable
 fun SidebarBody(
@@ -22,11 +21,12 @@ fun SidebarBody(
 ) {
     LazyColumn(modifier) {
         items(items) { item ->
-            Row(modifier = Modifier
-                .clickable {
-                    onItemClick(item)
-                }
-                .padding(16.dp)) {
+            Row(
+                modifier = Modifier
+                    .clickable {
+                        onItemClick(item)
+                    }
+                    .padding(16.dp)) {
                 Icon(
                     imageVector = item.icon,
                     contentDescription = item.contentDescription,

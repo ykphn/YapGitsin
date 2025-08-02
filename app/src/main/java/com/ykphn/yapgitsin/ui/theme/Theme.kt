@@ -1,6 +1,5 @@
 package com.ykphn.yapgitsin.ui.theme
 
-
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -11,37 +10,30 @@ private val LightColorScheme = lightColorScheme(
     primaryContainer = PrimaryContainerLight,
     onPrimaryContainer = OnPrimaryContainerLight,
     inversePrimary = InversePrimaryLight,
-
     secondary = SecondaryLight,
     onSecondary = OnSecondaryLight,
     secondaryContainer = SecondaryContainerLight,
     onSecondaryContainer = OnSecondaryContainerLight,
-
     tertiary = TertiaryLight,
     onTertiary = OnTertiaryLight,
     tertiaryContainer = TertiaryContainerLight,
     onTertiaryContainer = OnTertiaryContainerLight,
-
     background = BackgroundLight,
     onBackground = OnBackgroundLight,
     surface = SurfaceLight,
     onSurface = OnSurfaceLight,
-
     surfaceVariant = SurfaceVariantLight,
     onSurfaceVariant = OnSurfaceVariantLight,
     surfaceTint = SurfaceTintLight,
     inverseSurface = InverseSurfaceLight,
     inverseOnSurface = InverseOnSurfaceLight,
-
     error = ErrorLight,
     onError = OnErrorLight,
     errorContainer = ErrorContainerLight,
     onErrorContainer = OnErrorContainerLight,
-
     outline = OutlineLight,
     outlineVariant = OutlineVariantLight,
     scrim = ScrimLight,
-
     surfaceBright = SurfaceBrightLight,
     surfaceDim = SurfaceDimLight,
     surfaceContainerLowest = SurfaceContainerLowestLight,
@@ -50,7 +42,6 @@ private val LightColorScheme = lightColorScheme(
     surfaceContainerHigh = SurfaceContainerHighLight,
     surfaceContainerHighest = SurfaceContainerHighestLight
 )
-
 
 @Composable
 fun YapGitsinTheme(
@@ -64,8 +55,6 @@ fun YapGitsinTheme(
         content = content
     )
 }
-
-
 //@Composable
 //fun YapGitsinTheme(
 //    darkTheme: Boolean = isSystemInDarkTheme(),

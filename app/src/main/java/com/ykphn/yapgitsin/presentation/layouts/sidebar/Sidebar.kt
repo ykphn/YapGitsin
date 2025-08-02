@@ -17,7 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.ykphn.yapgitsin.data.model.SidebarItem
+import com.ykphn.yapgitsin.presentation.layouts.sidebar.model.SidebarItem
+import com.ykphn.yapgitsin.presentation.layouts.sidebar.components.SidebarBody
+import com.ykphn.yapgitsin.presentation.layouts.sidebar.components.SidebarHeader
 
 @Composable
 fun Sidebar(

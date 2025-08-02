@@ -15,7 +15,6 @@ val Grey = Color(0xFF49454F)
 val LightGrey = Color(0xFFE6E0E9)
 val VeryLightGrey = Color(0xFFF8F9FA)
 
-
 // Primary renk paleti (butonlar, ana vurgular için)
 val PrimaryLight = DarkBlue
 val OnPrimaryLight = White
@@ -45,7 +44,6 @@ val OnSurfaceLight = Black
 val SurfaceVariantLight = White
 val OnSurfaceVariantLight = Grey
 val SurfaceTintLight = PrimaryLight
-
 val InverseSurfaceLight = Navy
 val InverseOnSurfaceLight = VeryLightGrey
 
