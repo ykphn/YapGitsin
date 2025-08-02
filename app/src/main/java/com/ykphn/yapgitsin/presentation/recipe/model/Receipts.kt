@@ -1,6 +1,6 @@
 package com.ykphn.yapgitsin.presentation.recipe.model
 
-data class Receipts (
+data class Receipts(
     val id: Int,
     val name: String,
     val description: String,
