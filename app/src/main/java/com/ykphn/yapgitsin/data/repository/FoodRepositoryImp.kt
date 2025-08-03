@@ -1,8 +1,8 @@
 package com.ykphn.yapgitsin.data.repository
 
-import com.ykphn.yapgitsin.data.model.remote.products.CategoriesDTO
-import com.ykphn.yapgitsin.data.model.remote.products.FoodDTO
-import com.ykphn.yapgitsin.domain.repository.FoodRepository
+import com.ykphn.yapgitsin.data.remote.dto.CategoriesDTO
+import com.ykphn.yapgitsin.data.remote.dto.FoodDTO
+import com.ykphn.yapgitsin.core.domain.repository.FoodRepository
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
 import kotlinx.coroutines.Dispatchers

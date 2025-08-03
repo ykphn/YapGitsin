@@ -1,6 +1,6 @@
 package com.ykphn.yapgitsin.data.repository
 
-import com.ykphn.yapgitsin.domain.repository.AuthRepository
+import com.ykphn.yapgitsin.core.domain.repository.AuthRepository
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.providers.builtin.Email

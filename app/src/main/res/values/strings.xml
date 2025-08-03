@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Yap Gitsin</string>
+    <string name="title_activity_auth">AuthActivity</string>
 </resources>
