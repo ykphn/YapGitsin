@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ykphn.yapgitsin.core.common.state.UiState
-import com.ykphn.yapgitsin.presentation.foods.screens.LoadingScreen
+import com.ykphn.yapgitsin.presentation.layouts.screens.LoadingScreen
 import com.ykphn.yapgitsin.presentation.foods.screens.FoodListSuccessScreen
 import com.ykphn.yapgitsin.presentation.layouts.screens.ErrorScreen
 
