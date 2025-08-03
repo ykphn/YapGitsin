@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.foods.screens
+package com.ykphn.yapgitsin.presentation.layouts.screens
 
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -29,11 +30,11 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        contentAlignment = Alignment.Companion.Center
+            .background(Color.Transparent),
+        contentAlignment = Alignment.Center
     ) {
         Column(
-            horizontalAlignment = Alignment.Companion.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             // Dönen loading animasyonu
@@ -42,7 +43,7 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
                 color = MaterialTheme.colorScheme.primary
             )
 
-            Spacer(modifier = Modifier.Companion.height(24.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             // Fade ile yavaşça görünen yazı
             var alpha by remember { mutableFloatStateOf(0f) }
 
@@ -61,7 +62,7 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
                 text = "Yükleniyor",
                 fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.Companion.alpha(alpha)
+                modifier = Modifier.alpha(alpha)
             )
         }
     }
