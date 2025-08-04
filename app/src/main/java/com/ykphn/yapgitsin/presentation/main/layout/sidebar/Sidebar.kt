@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -37,10 +37,10 @@ fun Sidebar(
         SidebarBody(
             items = listOf(
                 SidebarItem(
-                    id = "main",
-                    title = "Home",
-                    contentDescription = "Home",
-                    icon = Icons.Default.Home
+                    id = "profile",
+                    title = "Profile",
+                    contentDescription = "Profile",
+                    icon = Icons.Default.AccountCircle
                 ), SidebarItem(
                     id = "food",
                     title = "Food",

@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ykphn.yapgitsin.presentation.main.layout.sidebar.model.SidebarItem
 
 @Composable
@@ -36,6 +37,7 @@ fun SidebarBody(
                 Text(
                     modifier = Modifier.weight(1f),
                     text = item.title,
+                    letterSpacing = 1.sp,
                     color = MaterialTheme.colorScheme.onSurface
                 )
             }

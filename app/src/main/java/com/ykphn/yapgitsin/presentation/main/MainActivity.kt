@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
                         Sidebar(
                             onNavigate = { route ->
                                 navController.navigate(route)
+                                scope.launch { drawerState.close() }
                             }
                         )
                     }
