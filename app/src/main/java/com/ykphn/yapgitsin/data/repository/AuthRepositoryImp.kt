@@ -7,12 +7,18 @@ import io.github.jan.supabase.auth.providers.builtin.Email
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class AuthRepositoryImpl @Inject constructor(
+@Singleton
+class AuthRepositoryImp @Inject constructor(
     private val supabaseClient: SupabaseClient
 ) : AuthRepository {
 
-    override suspend fun register(username: String, email: String, password: String): Result<Unit> {
+    override suspend fun register(
+        username: String,
+        email: String,
+        password: String
+    ): Result<Unit> {
         return try {
             supabaseClient.auth.signUpWith(Email) {
                 this.email = email
@@ -27,7 +33,10 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun login(email: String, password: String): Result<Unit> {
+    override suspend fun login(
+        email: String,
+        password: String
+    ): Result<Unit> {
         return try {
             supabaseClient.auth.signInWith(Email) {
                 this.email = email

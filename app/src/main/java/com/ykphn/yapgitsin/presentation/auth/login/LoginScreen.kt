@@ -1,15 +1,16 @@
 package com.ykphn.yapgitsin.presentation.auth.login
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -20,6 +21,9 @@ import com.ykphn.yapgitsin.presentation.auth.login.components.LoginForm
 import com.ykphn.yapgitsin.presentation.auth.login.components.LoginHeader
 import com.ykphn.yapgitsin.presentation.auth.login.components.SignUpRow
 import com.ykphn.yapgitsin.presentation.auth.login.components.SocialLoginRow
+import com.ykphn.yapgitsin.presentation.auth.login.state.LoginState
+import com.ykphn.yapgitsin.presentation.common.screens.LoadingOverlay
+import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
 import com.ykphn.yapgitsin.presentation.main.MainActivity
 
 @Composable
@@ -29,30 +33,48 @@ fun LoginScreen(
     navController: NavController,
 ) {
     val context = LocalContext.current
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
+    val loginState by viewModel.loginState.collectAsState()
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        LoginHeader()
+    LaunchedEffect(loginState) {
+        val message = when (loginState) {
+            LoginState.GeneralError -> "Geçersiz kimlik bilgileri."
+            LoginState.Success -> "Oturum açıldı"
+            else -> null
+        }
 
-        LoginForm(
-            email = email,
-            onEmailChange = { email = it },
-            password = password,
-            onPasswordChange = { password = it },
-            passwordVisible = passwordVisible,
-            onPasswordVisibilityChange = { passwordVisible = !passwordVisible },
-            onLoginClick = { context.startActivity(Intent(context, MainActivity::class.java)) })
+        message?.let {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
 
-        SocialLoginRow(onAppleClick = { }, onFacebookClick = { }, onGmailClick = { })
+        if (loginState == LoginState.Success)
+            context.startActivity(Intent(context, MainActivity::class.java))
 
-        SignUpRow(onSignUpClick = { navController.navigate("register") })
     }
+
+    Box(modifier = modifier.fillMaxSize()) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(24.dp),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            LoginHeader()
+
+            LoginForm(onLoginClick = { email, password ->
+                viewModel.loginUSerAccount(email, password) })
+
+            SocialLoginRow(onAppleClick = { }, onFacebookClick = { }, onGmailClick = { })
+
+            SignUpRow(onSignUpClick = { navController.navigate("register") })
+        }
+
+        if (loginState == LoginState.Loading) {
+            LoadingOverlay(modifier)
+            LoadingScreen(modifier)
+        }
+
+    }
+
+
 }

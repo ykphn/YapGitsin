@@ -1,9 +1,9 @@
 package com.ykphn.yapgitsin.core.di
 
-import com.ykphn.yapgitsin.data.repository.AuthRepositoryImpl
-import com.ykphn.yapgitsin.data.repository.FoodRepositoryImp
 import com.ykphn.yapgitsin.core.domain.repository.AuthRepository
 import com.ykphn.yapgitsin.core.domain.repository.FoodRepository
+import com.ykphn.yapgitsin.data.repository.AuthRepositoryImp
+import com.ykphn.yapgitsin.data.repository.FoodRepositoryImp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,6 +22,6 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindAuthRepository(
-        impl: AuthRepositoryImpl
+        impl: AuthRepositoryImp
     ): AuthRepository
 }

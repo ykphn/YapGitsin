@@ -110,19 +110,15 @@ fun RegisterForm(
         Spacer(modifier = Modifier.height(12.dp))
         Button(
             onClick = {
-                if (username.isEmpty()) {
-                    registerState.value = RegisterFormState.UsernameError
-                } else if (email.isEmpty()) {
-                    registerState.value = RegisterFormState.EmailError
-                } else if (password.isEmpty()) {
-                    registerState.value = RegisterFormState.PasswordError
-                } else if (!passwordMatch) {
-                    registerState.value = RegisterFormState.PasswordMatchError
-                } else {
-                    registerState.value = RegisterFormState.Success
-                }
+                if (username.isEmpty()) registerState.value = RegisterFormState.UsernameError
+                else if (email.isEmpty()) registerState.value = RegisterFormState.EmailError
+                else if (password.isEmpty()) registerState.value = RegisterFormState.PasswordError
+                else if (!passwordMatch) registerState.value = RegisterFormState.PasswordMatchError
+                else registerState.value = RegisterFormState.Success
 
-                if (registerState.value == RegisterFormState.Success) onRegisterClick(username, email, password)
+
+                if (registerState.value == RegisterFormState.Success)
+                    onRegisterClick(username, email, password)
 
             },
             modifier = Modifier
