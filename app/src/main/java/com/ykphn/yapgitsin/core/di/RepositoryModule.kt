@@ -10,6 +10,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@Suppress("unused") // False Positive - Used by Hilt
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
