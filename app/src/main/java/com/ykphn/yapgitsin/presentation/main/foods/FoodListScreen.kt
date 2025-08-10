@@ -7,9 +7,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ykphn.yapgitsin.core.model.UiState
-import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
-import com.ykphn.yapgitsin.presentation.main.foods.screens.FoodListSuccessScreen
-import com.ykphn.yapgitsin.presentation.common.screens.ErrorScreen
+import com.ykphn.yapgitsin.presentation.common.screen.LoadingScreen
+import com.ykphn.yapgitsin.presentation.main.foods.screen.FoodListSuccessScreen
+import com.ykphn.yapgitsin.presentation.common.screen.ErrorScreen
 
 @Composable
 fun FoodListScreen(modifier: Modifier = Modifier, navController: NavHostController) {

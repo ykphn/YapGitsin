@@ -7,9 +7,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ykphn.yapgitsin.core.model.UiState
-import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
-import com.ykphn.yapgitsin.presentation.common.screens.ErrorScreen
-import com.ykphn.yapgitsin.presentation.main.recipe.screens.ReceiptSuccessScreen
+import com.ykphn.yapgitsin.presentation.common.screen.EmptyScreen
+import com.ykphn.yapgitsin.presentation.common.screen.ErrorScreen
+import com.ykphn.yapgitsin.presentation.main.recipe.screen.ReceiptSuccessScreen
 
 @Composable
 fun ReceiptScreen(

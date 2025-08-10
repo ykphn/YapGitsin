@@ -11,6 +11,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.ykphn.yapgitsin.presentation.main.foods.FoodListScreen
+import com.ykphn.yapgitsin.presentation.main.editprofile.EditProfileScreen
+import com.ykphn.yapgitsin.presentation.main.profile.ProfileScreen
 import com.ykphn.yapgitsin.presentation.main.recipe.ReceiptScreen
 
 @Composable
@@ -27,6 +29,8 @@ fun MainNavHost(
         popExitTransition = { fadeOut() }
     ) {
         navigation(route = "main", startDestination = "food") {
+            composable("profile") { ProfileScreen(navController = navHostController) }
+            composable("edit") { EditProfileScreen(navController = navHostController) }
             composable("food") { FoodListScreen(navController = navHostController) }
             composable(
                 route = "receipt/{receiptId}",

@@ -1,9 +1,11 @@
 package com.ykphn.yapgitsin.core.di
 
 import com.ykphn.yapgitsin.core.domain.repository.AuthRepository
-import com.ykphn.yapgitsin.core.domain.repository.FoodRepository
+import com.ykphn.yapgitsin.core.domain.repository.BucketsRepository
+import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
 import com.ykphn.yapgitsin.data.repository.AuthRepositoryImp
-import com.ykphn.yapgitsin.data.repository.FoodRepositoryImp
+import com.ykphn.yapgitsin.data.repository.BucketsRepositoryImp
+import com.ykphn.yapgitsin.data.repository.DatabaseRepositoryImp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,12 +19,18 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindFoodRepository(
-        impl: FoodRepositoryImp
-    ): FoodRepository
+        impl: DatabaseRepositoryImp
+    ): DatabaseRepository
 
     @Binds
     @Singleton
     abstract fun bindAuthRepository(
         impl: AuthRepositoryImp
     ): AuthRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindBucketsRepository(
+        impl: BucketsRepositoryImp
+    ): BucketsRepository
 }

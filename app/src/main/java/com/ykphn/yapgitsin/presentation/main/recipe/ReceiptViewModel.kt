@@ -3,7 +3,7 @@ package com.ykphn.yapgitsin.presentation.main.recipe
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.model.UiState
-import com.ykphn.yapgitsin.data.repository.FoodRepositoryImp
+import com.ykphn.yapgitsin.data.repository.DatabaseRepositoryImp
 import com.ykphn.yapgitsin.presentation.main.recipe.model.Receipts
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReceiptViewModel @Inject constructor(
-    private val repository: FoodRepositoryImp
+    private val repository: DatabaseRepositoryImp
 ) : ViewModel() {
     private val _receiptList = MutableStateFlow<List<Receipts>>(emptyList())
     private val _receipt = MutableStateFlow<Receipts?>(null)
@@ -36,7 +36,7 @@ class ReceiptViewModel @Inject constructor(
     }
 
     private suspend fun loadFoods(): Boolean {
-        val result = repository.getAllFoods()
+        val result = repository.getFoods()
         return result.onSuccess {
             _receiptList.value = it.map { food ->
                 Receipts(

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.model.UiState
 import com.ykphn.yapgitsin.presentation.main.foods.model.Foods
-import com.ykphn.yapgitsin.core.domain.repository.FoodRepository
+import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
 import com.ykphn.yapgitsin.presentation.main.foods.model.Categories
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FoodListViewModel @Inject constructor(
-    private val repository: FoodRepository
+    private val repository: DatabaseRepository
 ) : ViewModel() {
     private val _allCategoriesSelected = MutableStateFlow(value = true)
     val allCategoriesSelected: StateFlow<Boolean> = _allCategoriesSelected.asStateFlow()
@@ -45,14 +45,14 @@ class FoodListViewModel @Inject constructor(
     }
 
     private suspend fun loadCategories(): Boolean {
-        val result = repository.getAllCategories()
+        val result = repository.getCategories()
         return result.onSuccess {
             _categories.value = it.map { dto -> Categories(dto.id, dto.name, true) }
         }.isSuccess
     }
 
     private suspend fun loadFoods(): Boolean {
-        val result = repository.getAllFoods()
+        val result = repository.getFoods()
         return result.onSuccess {
             _foods.value = it.map { dto ->
                 Foods(

@@ -19,7 +19,7 @@ class LoginScreenViewModel @Inject constructor(
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
     val loginState: StateFlow<LoginState> = _loginState.asStateFlow()
 
-    fun loginUSerAccount(email: String, password: String) {
+    fun loginUserAccount(email: String, password: String) {
         viewModelScope.launch {
             _loginState.value = LoginState.Loading
             authRepository.login(email, password)

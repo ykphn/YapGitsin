@@ -1,5 +1,7 @@
 package com.ykphn.yapgitsin.presentation.auth.register
 
+import android.app.Activity
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,8 +22,9 @@ import com.ykphn.yapgitsin.presentation.auth.register.components.RegisterForm
 import com.ykphn.yapgitsin.presentation.auth.register.components.RegisterHeader
 import com.ykphn.yapgitsin.presentation.auth.register.components.RegisterSignInRow
 import com.ykphn.yapgitsin.presentation.auth.register.state.RegisterState
-import com.ykphn.yapgitsin.presentation.common.screens.LoadingOverlay
-import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
+import com.ykphn.yapgitsin.presentation.common.screen.LoadingOverlay
+import com.ykphn.yapgitsin.presentation.common.screen.LoadingScreen
+import com.ykphn.yapgitsin.presentation.main.MainActivity
 
 @Composable
 fun RegisterScreen(
@@ -45,9 +48,11 @@ fun RegisterScreen(
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
 
-        if (registerState == RegisterState.Success)
-            navController.navigate("login")
-
+        if (registerState == RegisterState.Success) {
+            val activity = context as? Activity
+            context.startActivity(Intent(context, MainActivity::class.java))
+            activity?.finish()
+        }
     }
 
     Box(modifier = modifier.fillMaxSize()) {

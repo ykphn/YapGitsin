@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.main.recipe.screens
+package com.ykphn.yapgitsin.presentation.main.recipe.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells

@@ -1,5 +1,6 @@
 package com.ykphn.yapgitsin.presentation.auth.login
 
+import android.app.Activity
 import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -22,8 +23,8 @@ import com.ykphn.yapgitsin.presentation.auth.login.components.LoginHeader
 import com.ykphn.yapgitsin.presentation.auth.login.components.SignUpRow
 import com.ykphn.yapgitsin.presentation.auth.login.components.SocialLoginRow
 import com.ykphn.yapgitsin.presentation.auth.login.state.LoginState
-import com.ykphn.yapgitsin.presentation.common.screens.LoadingOverlay
-import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
+import com.ykphn.yapgitsin.presentation.common.screen.LoadingOverlay
+import com.ykphn.yapgitsin.presentation.common.screen.LoadingScreen
 import com.ykphn.yapgitsin.presentation.main.MainActivity
 
 @Composable
@@ -46,8 +47,11 @@ fun LoginScreen(
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
 
-        if (loginState == LoginState.Success)
+        if (loginState == LoginState.Success) {
+            val activity = context as? Activity
             context.startActivity(Intent(context, MainActivity::class.java))
+            activity?.finish()
+        }
 
     }
 
@@ -62,7 +66,7 @@ fun LoginScreen(
             LoginHeader()
 
             LoginForm(onLoginClick = { email, password ->
-                viewModel.loginUSerAccount(email, password) })
+                viewModel.loginUserAccount(email, password) })
 
             SocialLoginRow(onAppleClick = { }, onFacebookClick = { }, onGmailClick = { })
 

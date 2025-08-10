@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.main.foods.screens
+package com.ykphn.yapgitsin.presentation.main.foods.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
