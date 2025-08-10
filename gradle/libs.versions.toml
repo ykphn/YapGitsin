@@ -65,6 +65,9 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 
 ## Supabase & Ktor
 supabase-bom = { module = "io.github.jan-tennert.supabase:bom", version.ref = "supabase" }
+supabase-auth = { group = "io.github.jan-tennert.supabase", name = "auth-kt" }
+supabase-coil = { group = "io.github.jan-tennert.supabase", name = "coil-integration" }
+supabase-storage = { group = "io.github.jan-tennert.supabase", name = "storage-kt" }
 supabase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "supabase" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 

@@ -4,8 +4,6 @@ import com.ykphn.yapgitsin.core.domain.repository.AuthRepository
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.providers.builtin.Email
-import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.json.put
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,7 +13,6 @@ class AuthRepositoryImp @Inject constructor(
 ) : AuthRepository {
 
     override suspend fun register(
-        username: String,
         email: String,
         password: String
     ): Result<Unit> {
@@ -23,9 +20,6 @@ class AuthRepositoryImp @Inject constructor(
             supabaseClient.auth.signUpWith(Email) {
                 this.email = email
                 this.password = password
-                this.data = buildJsonObject {
-                    put("display_name", username)
-                }
             }
             Result.success(Unit)
         } catch (e: Exception) {

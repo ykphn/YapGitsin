@@ -20,10 +20,12 @@ import androidx.compose.ui.unit.dp
 import com.ykphn.yapgitsin.presentation.main.layout.sidebar.model.SidebarItem
 import com.ykphn.yapgitsin.presentation.main.layout.sidebar.components.SidebarBody
 import com.ykphn.yapgitsin.presentation.main.layout.sidebar.components.SidebarHeader
+import com.ykphn.yapgitsin.presentation.main.layout.sidebar.components.SidebarLogout
 
 @Composable
 fun Sidebar(
-    onNavigate: (String) -> Unit
+    onNavigate: (String) -> Unit,
+    onLogout: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -35,6 +37,7 @@ fun Sidebar(
     ) {
         SidebarHeader()
         SidebarBody(
+            modifier = Modifier.weight(1f),
             items = listOf(
                 SidebarItem(
                     id = "profile",
@@ -54,6 +57,8 @@ fun Sidebar(
                 )
             ), onItemClick = { item ->
                 onNavigate(item.id)
-            })
+            }
+        )
+        SidebarLogout(onLogoutClick = onLogout)
     }
 }

@@ -76,10 +76,10 @@ dependencies {
     implementation(libs.androidx.activity.compose)         // Compose support for Activities
 
     // Jetpack Compose Libraries
-    implementation(platform(libs.androidx.compose.bom))   // Compose BOM for version alignment
-    implementation(libs.androidx.ui)                       // Basic UI components for Jetpack Compose
+    implementation(platform(libs.androidx.compose.bom))     // Compose BOM for version alignment
+    implementation(libs.androidx.ui)                        // Basic UI components for Jetpack Compose
     implementation(libs.androidx.ui.graphics)               // Compose graphics library
-    implementation(libs.androidx.ui.tooling.preview)       // Tooling for Compose UI preview
+    implementation(libs.androidx.ui.tooling.preview)        // Tooling for Compose UI preview
     implementation(libs.androidx.material3)                 // Material Design 3 components for Compose
     implementation(libs.coil.compose)                       // Coil image loading for Compose
     implementation(libs.coil.network)                       // Coil network image loading
@@ -91,15 +91,18 @@ dependencies {
     implementation(libs.hilt.android)                       // Hilt DI library
     ksp(libs.hilt.android.compiler)                         // Hilt annotation processor
     implementation(libs.androidx.lifecycle.viewmodel.compose) // ViewModel support in Compose
-    implementation(libs.androidx.hilt.navigation.compose)  // Hilt navigation for Compose
+    implementation(libs.androidx.hilt.navigation.compose)   // Hilt navigation for Compose
 
     // Supabase & Networking
-    implementation(platform(libs.supabase.bom))            // Supabase BOM for version alignment
+    implementation(platform(libs.supabase.bom))             // Supabase BOM for version alignment
+    implementation(libs.supabase.auth)                      // Supabase Auth client
+    implementation(libs.supabase.coil)                      // Supabase Coil integration
+    implementation(libs.supabase.storage)                   // Supabase Storage client
     implementation(libs.supabase.postgrest)                 // Supabase Postgrest client
     implementation(libs.ktor.client.android)                // Ktor client for Android
 
     // Testing Libraries
-    testImplementation(libs.junit)                           // JUnit for unit testing
+    testImplementation(libs.junit)                          // JUnit for unit testing
     androidTestImplementation(libs.androidx.junit)          // AndroidX JUnit extensions
     androidTestImplementation(libs.androidx.espresso.core)  // Espresso for UI testing
     androidTestImplementation(platform(libs.androidx.compose.bom)) // Compose BOM for testing
