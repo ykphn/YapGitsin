@@ -1,10 +1,10 @@
-package com.ykphn.yapgitsin.presentation.main.foods.model
+package com.ykphn.yapgitsin.presentation.main.models
 
-data class Foods(
+data class Food(
     val id: Int,
     val categoryId: Int,
     val name: String,
     val imageUrl: String,
-    val time: String,
+    val preparationTime: String,
     val servings: String,
 )
