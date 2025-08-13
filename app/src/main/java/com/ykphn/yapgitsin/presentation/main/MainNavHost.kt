@@ -2,6 +2,7 @@ package com.ykphn.yapgitsin.presentation.main
 
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -10,10 +11,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.ykphn.yapgitsin.presentation.main.foods.FoodListScreen
-import com.ykphn.yapgitsin.presentation.main.editprofile.EditProfileScreen
-import com.ykphn.yapgitsin.presentation.main.profile.ProfileScreen
-import com.ykphn.yapgitsin.presentation.main.recipe.ReceiptScreen
+import com.ykphn.yapgitsin.presentation.main.screens.FoodListScreen
+import com.ykphn.yapgitsin.presentation.main.screens.EditProfileScreen
+import com.ykphn.yapgitsin.presentation.main.screens.ProfileScreen
+import com.ykphn.yapgitsin.presentation.main.screens.ReceiptScreen
 
 @Composable
 fun MainNavHost(

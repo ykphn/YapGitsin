@@ -16,8 +16,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.ykphn.yapgitsin.core.domain.repository.AuthRepository
 import com.ykphn.yapgitsin.presentation.auth.AuthActivity
-import com.ykphn.yapgitsin.presentation.main.layout.AppBar
-import com.ykphn.yapgitsin.presentation.main.layout.sidebar.Sidebar
+import com.ykphn.yapgitsin.presentation.main.components.AppBar
+import com.ykphn.yapgitsin.presentation.main.components.Sidebar
 import com.ykphn.yapgitsin.ui.theme.YapGitsinTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
