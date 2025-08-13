@@ -1,11 +1,12 @@
-package com.ykphn.yapgitsin.presentation.main.profile
+package com.ykphn.yapgitsin.presentation.main.viewmodels
 
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.domain.repository.BucketsRepository
 import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
 import com.ykphn.yapgitsin.core.model.UiState
-import com.ykphn.yapgitsin.presentation.main.profile.model.UserProfile
+import com.ykphn.yapgitsin.presentation.main.models.UserProfile
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,6 +21,8 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
+    private val _userAvatar = MutableStateFlow<ImageBitmap?>(null)
+    val userAvatar: StateFlow<ImageBitmap?> = _userAvatar.asStateFlow()
     private val _profileData = MutableStateFlow<UserProfile?>(null)
     val profileData: StateFlow<UserProfile?> = _profileData.asStateFlow()
 
@@ -31,9 +34,9 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = UiState.Loading
             val profileResult = getUserProfile()
-            val avatarResult = getUserAvatar()
+            getUserAvatar()
 
-            if (profileResult && avatarResult) {
+            if (profileResult) {
                 _uiState.value = UiState.Success
             } else {
                 _uiState.value = UiState.Error
@@ -45,21 +48,21 @@ class ProfileViewModel @Inject constructor(
         return databaseRepository.getProfile().onSuccess { profile ->
             _profileData.value = UserProfile(
                 id = profile.id,
-                avatar = null,
                 fullName = profile.name,
                 username = profile.username,
                 bio = profile.bio,
-                date = profile.date,
+                joinedDate = profile.date,
                 likes = profile.likes,
                 stars = profile.stars
             )
         }.isSuccess
     }
 
-    private suspend fun getUserAvatar(): Boolean {
-        return bucketsRepository.getUserAvatar()
+    private suspend fun getUserAvatar() {
+        bucketsRepository.getUserAvatar()
             .onSuccess {
-                _profileData.value = _profileData.value?.copy(avatar = it)
-            }.isSuccess
+                _userAvatar.value = null
+                _userAvatar.value = it
+            }
     }
 }
