@@ -1,6 +1,8 @@
-package com.ykphn.yapgitsin.presentation.main.editprofile.screen
+package com.ykphn.yapgitsin.presentation.main.screens
 
+import android.content.Context
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -17,49 +19,91 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
-import com.ykphn.yapgitsin.presentation.main.editprofile.state.SetupScreenUiState
+import com.ykphn.yapgitsin.core.model.UiState
+import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
+import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
+import com.ykphn.yapgitsin.presentation.main.viewmodels.EditProfileViewModel
+
+@Composable
+fun EditProfileScreen(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    viewModel: EditProfileViewModel = hiltViewModel()
+) {
+    val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
+
+    when (uiState) {
+        UiState.Error -> {
+            Toast.makeText(
+                context,
+                "Bir hata oluştu. Daha sonra tekrar deneyiniz.",
+                Toast.LENGTH_LONG
+            ).show()
+            navController.popBackStack()
+        }
+
+        UiState.Idle -> SetupScreen(
+            modifier = modifier,
+            context = context,
+            photoUri = viewModel.uri,
+            name = viewModel.name,
+            username = viewModel.username,
+            bio = viewModel.bio,
+            error = viewModel.errorMessage,
+            onPhotoUriChange = viewModel::updateUri,
+            onNameChange = viewModel::updateName,
+            onUsernameChange = viewModel::updateUsername,
+            onBioChange = viewModel::updateBio,
+            onUpdateClick = viewModel::onUpdateClick
+        )
+
+        UiState.Loading -> {
+            EmptyScreen(modifier)
+            LoadingScreen(modifier)
+        }
+
+        UiState.Success -> {
+            Toast.makeText(context, "Profil başarıyla güncellendi", Toast.LENGTH_LONG).show()
+            navController.popBackStack()
+        }
+    }
+
+}
 
 @Composable
 fun SetupScreen(
     modifier: Modifier = Modifier,
-    onProfileUpdate: (Uri, String, String, String) -> Unit
+    context: Context,
+    photoUri: Uri?,
+    name: String,
+    username: String,
+    bio: String,
+    error: String?,
+    onPhotoUriChange: (Uri) -> Unit,
+    onNameChange: (String) -> Unit,
+    onUsernameChange: (String) -> Unit,
+    onBioChange: (String) -> Unit,
+    onUpdateClick: (Context) -> Unit,
 ) {
-    var name by remember { mutableStateOf("") }
-    var username by remember { mutableStateOf("") }
-    var bio by remember { mutableStateOf("") }
-
-    var uiState by remember { mutableStateOf<SetupScreenUiState>(SetupScreenUiState.Idle) }
-
-    var photoUri by remember { mutableStateOf<Uri?>(null) }
-
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        photoUri = uri
-    }
-
-    val hintText = when (uiState) {
-        SetupScreenUiState.Idle -> "Lütfen tüm kutuları doldurun"
-        SetupScreenUiState.AvatarError -> "Lütfen bir resim seçiniz"
-        SetupScreenUiState.NameSurnameError -> "İsim ve soyisim alanı boş bırakılamaz"
-        SetupScreenUiState.NicknameError -> "Kullanıcı adı boş bırakılamaz"
-        SetupScreenUiState.BiographyError -> "Biyografi alanı boş bırakılamaz"
-        SetupScreenUiState.Success -> ""
-    }
+    ) { it?.let { onPhotoUriChange(it) } }
 
     Column(
         modifier = modifier
@@ -68,10 +112,9 @@ fun SetupScreen(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Text(
-            text = hintText,
-            color = if (uiState == SetupScreenUiState.Idle) Color.Blue else Color.Red,
+            text = error ?: "Lütfen tüm kutuları doldurun",
+            color = error?.let { Color.Red } ?: Color.Blue,
             textAlign = TextAlign.Center,
             letterSpacing = 1.sp,
             fontSize = 16.sp,
@@ -102,7 +145,7 @@ fun SetupScreen(
 
         OutlinedTextField(
             value = name,
-            onValueChange = { name = it },
+            onValueChange = { onNameChange(it) },
             label = { Text("Ad Soyad") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -110,7 +153,7 @@ fun SetupScreen(
 
         OutlinedTextField(
             value = username,
-            onValueChange = { username = it },
+            onValueChange = { onUsernameChange(it) },
             label = { Text("Kullanıcı Adı") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -118,7 +161,7 @@ fun SetupScreen(
 
         OutlinedTextField(
             value = bio,
-            onValueChange = { bio = it },
+            onValueChange = { onBioChange(it) },
             label = { Text("Hakkında") },
             modifier = Modifier
                 .fillMaxWidth()
@@ -127,16 +170,7 @@ fun SetupScreen(
         )
 
         Button(
-            onClick = {
-                uiState = if (photoUri == null) SetupScreenUiState.AvatarError
-                else if (name == "") SetupScreenUiState.NameSurnameError
-                else if (username == "") SetupScreenUiState.NicknameError
-                else if (bio == "") SetupScreenUiState.BiographyError
-                else SetupScreenUiState.Success
-
-                if (uiState == SetupScreenUiState.Success)
-                    onProfileUpdate(photoUri!!, name, username, bio)
-            },
+            onClick = { onUpdateClick(context) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Kaydet")
