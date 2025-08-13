@@ -42,6 +42,15 @@ class AuthRepositoryImp @Inject constructor(
         }
     }
 
+    override suspend fun forgotPassword(email: String): Result<Unit> {
+        return try {
+            supabaseClient.auth.resetPasswordForEmail(email)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     override suspend fun logout(): Result<Unit> {
         return try {
             supabaseClient.auth.signOut()

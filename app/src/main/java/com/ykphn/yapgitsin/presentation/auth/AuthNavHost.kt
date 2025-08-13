@@ -27,7 +27,7 @@ fun AuthNavGraph(
         navigation(route = "auth", startDestination = "login") {
             composable("login") { LoginScreen(navController = navHostController) }
             composable("register") { RegisterScreen(navController = navHostController) }
-            composable("forgotPassword") { }
+            composable("forgot") { }
         }
     }
 }
