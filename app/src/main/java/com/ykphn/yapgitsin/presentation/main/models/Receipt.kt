@@ -1,10 +1,10 @@
-package com.ykphn.yapgitsin.presentation.main.recipe.model
+package com.ykphn.yapgitsin.presentation.main.models
 
-data class Receipts(
+data class Receipt(
     val id: Int,
-    val name: String,
+    val title: String,
     val description: String,
-    val recipe: String,
+    val instructions: String,
     val ingredients: List<String>,
     val imageUrl: String,
     val time: String,

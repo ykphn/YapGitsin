@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.main.recipe.screen
+package com.ykphn.yapgitsin.presentation.main.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -8,19 +8,58 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
-import com.ykphn.yapgitsin.presentation.main.recipe.model.Receipts
+import com.ykphn.yapgitsin.core.model.UiState
+import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
+import com.ykphn.yapgitsin.presentation.common.screens.ErrorScreen
+import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
+import com.ykphn.yapgitsin.presentation.main.viewmodels.ReceiptViewModel
+import com.ykphn.yapgitsin.presentation.main.models.Receipt
+
+@Composable
+fun ReceiptScreen(
+    modifier: Modifier = Modifier, receiptId: Int
+) {
+    val viewModel: ReceiptViewModel = hiltViewModel()
+    val uiState by viewModel.uiState.collectAsState()
+    val receipt by viewModel.receipt.collectAsState()
+
+    LaunchedEffect(receiptId) {
+        viewModel.loadInitialData(receiptId)
+    }
+
+    when (uiState) {
+        UiState.Idle -> {EmptyScreen()}
+
+        UiState.Error -> {
+            ErrorScreen(modifier = modifier)
+        }
+
+        UiState.Loading -> {
+            LoadingScreen(modifier = modifier)
+        }
+
+        UiState.Success -> {
+            ReceiptSuccessScreen(
+                modifier = modifier, receipt = receipt!!
+            )
+        }
+    }
+}
 
 @Composable
 fun ReceiptSuccessScreen(
     modifier: Modifier = Modifier,
-    receipt: Receipts
+    receipt: Receipt
 ) {
     Column(
         modifier = modifier
@@ -29,7 +68,7 @@ fun ReceiptSuccessScreen(
     ) {
         AsyncImage(
             model = receipt.imageUrl,
-            contentDescription = receipt.name,
+            contentDescription = receipt.title,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
@@ -38,7 +77,7 @@ fun ReceiptSuccessScreen(
         )
 
         Text(
-            text = receipt.name,
+            text = receipt.title,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
@@ -64,7 +103,7 @@ fun ReceiptSuccessScreen(
             modifier = Modifier.padding(bottom = 8.dp)
         )
         Text(
-            text = receipt.recipe, fontSize = 16.sp, modifier = Modifier.padding(bottom = 8.dp)
+            text = receipt.instructions, fontSize = 16.sp, modifier = Modifier.padding(bottom = 8.dp)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -99,25 +138,3 @@ fun ReceiptSuccessScreen(
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun ReceiptSuccessScreenPreview() {
-    val dummy = Receipts(
-        id = 1,
-        name = "Lorem Ipsum",
-        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        recipe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        ingredients = listOf(
-            "Lorem ingredient 1",
-            "Lorem ingredient 2",
-            "Lorem ingredient 3",
-            "Lorem ingredient 4"
-        ),
-        imageUrl = "",
-        time = "30 dk",
-        servings = "2 kişilik",
-    )
-    ReceiptSuccessScreen(receipt = dummy)
-}
-
