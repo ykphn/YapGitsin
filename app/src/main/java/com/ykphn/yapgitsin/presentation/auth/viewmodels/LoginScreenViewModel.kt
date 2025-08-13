@@ -45,11 +45,11 @@ class LoginScreenViewModel @Inject constructor(
         when {
             email.isBlank() -> errorMessage = "Mail adresi boş bırakılamaz!"
             password.isBlank() -> errorMessage = "Şifre alanı boş bırakılamaz!"
-            else -> signIn(email, password)
+            else -> signIn()
         }
     }
 
-    private fun signIn(email: String, password: String) {
+    private fun signIn() {
         viewModelScope.launch {
             _signInState.value = AuthState.Loading
             authRepository.login(email, password)

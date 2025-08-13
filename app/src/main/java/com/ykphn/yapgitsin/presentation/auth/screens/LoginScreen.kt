@@ -45,8 +45,8 @@ import androidx.navigation.NavController
 import com.ykphn.yapgitsin.R
 import com.ykphn.yapgitsin.presentation.auth.viewmodels.LoginScreenViewModel
 import com.ykphn.yapgitsin.presentation.auth.state.AuthState
-import com.ykphn.yapgitsin.presentation.common.screen.LoadingOverlay
-import com.ykphn.yapgitsin.presentation.common.screen.LoadingScreen
+import com.ykphn.yapgitsin.presentation.common.screens.LoadingOverlay
+import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
 import com.ykphn.yapgitsin.presentation.main.MainActivity
 
 @Composable
