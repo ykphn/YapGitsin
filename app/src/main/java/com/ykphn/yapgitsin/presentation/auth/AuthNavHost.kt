@@ -8,8 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.ykphn.yapgitsin.presentation.auth.login.LoginScreen
-import com.ykphn.yapgitsin.presentation.auth.register.RegisterScreen
+import com.ykphn.yapgitsin.presentation.auth.screens.LoginScreen
+import com.ykphn.yapgitsin.presentation.auth.screens.RegisterScreen
 
 @Composable
 fun AuthNavGraph(

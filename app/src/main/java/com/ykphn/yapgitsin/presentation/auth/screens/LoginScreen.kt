@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.auth.login
+package com.ykphn.yapgitsin.presentation.auth.screens
 
 import android.app.Activity
 import android.content.Intent
@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ykphn.yapgitsin.R
+import com.ykphn.yapgitsin.presentation.auth.viewmodels.LoginScreenViewModel
 import com.ykphn.yapgitsin.presentation.auth.state.AuthState
 import com.ykphn.yapgitsin.presentation.common.screen.LoadingOverlay
 import com.ykphn.yapgitsin.presentation.common.screen.LoadingScreen

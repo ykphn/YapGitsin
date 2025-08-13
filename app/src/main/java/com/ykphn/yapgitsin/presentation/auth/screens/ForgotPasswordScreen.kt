@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.auth.forgot
+package com.ykphn.yapgitsin.presentation.auth.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -19,7 +19,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.ykphn.yapgitsin.R
 
 @Composable

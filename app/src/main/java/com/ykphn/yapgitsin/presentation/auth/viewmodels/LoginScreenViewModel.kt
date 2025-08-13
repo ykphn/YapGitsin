@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.auth.login
+package com.ykphn.yapgitsin.presentation.auth.viewmodels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

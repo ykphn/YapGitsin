@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlin.time.ExperimentalTime
 
+@Suppress("DEPRECATION")
 @OptIn(ExperimentalTime::class)
 fun formatToMonthYear(rawDate: Instant?): String {
     return try {
@@ -23,7 +24,7 @@ fun formatToMonthYear(rawDate: Instant?): String {
         // 4) "MMMM yyyy" format, Türkçe locale
         val fmt = DateTimeFormatter.ofPattern("MMMM yyyy", Locale("tr"))
         zdt.format(fmt)
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         "Bilinmeyen Tarih"
     }
 }

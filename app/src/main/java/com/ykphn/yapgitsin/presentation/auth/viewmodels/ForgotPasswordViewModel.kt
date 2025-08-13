@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.auth.forgot
+package com.ykphn.yapgitsin.presentation.auth.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
