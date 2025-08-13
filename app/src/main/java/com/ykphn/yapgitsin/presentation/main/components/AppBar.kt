@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.main.layout
+package com.ykphn.yapgitsin.presentation.main.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu

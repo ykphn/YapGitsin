@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.main.layout.sidebar.model
+package com.ykphn.yapgitsin.presentation.main.models
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
