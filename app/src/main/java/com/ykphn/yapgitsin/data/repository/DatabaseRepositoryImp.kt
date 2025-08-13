@@ -92,6 +92,7 @@ class DatabaseRepositoryImp @Inject constructor(
                         eq("id", userId)
                     }
                 }
+            cachedProfile = null
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

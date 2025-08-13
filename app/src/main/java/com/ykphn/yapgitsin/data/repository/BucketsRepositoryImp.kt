@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import com.ykphn.yapgitsin.core.domain.repository.BucketsRepository
+import com.ykphn.yapgitsin.core.domain.utils.uriToImageBitmap
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.storage.storage
@@ -34,13 +35,14 @@ class BucketsRepositoryImp @Inject constructor(
             supabaseClient.storage.from("avatars").upload(
                 path = path, data = byteArray
             ) { upsert = true }
+            tempImage = uriToImageBitmap(context, imageUri)
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    private val tempImage: ImageBitmap? = null
+    private var tempImage: ImageBitmap? = null
     override suspend fun getUserAvatar(): Result<ImageBitmap> = withContext(Dispatchers.IO) {
         tempImage?.let { return@withContext Result.success(it) }
         val user = supabaseClient.auth.currentUserOrNull() ?: return@withContext Result.failure(
@@ -53,6 +55,7 @@ class BucketsRepositoryImp @Inject constructor(
 
             val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
             val imageBitmap = bitmap.asImageBitmap()
+            tempImage = imageBitmap
             return@withContext Result.success(imageBitmap)
         } catch (e: Exception) {
             return@withContext Result.failure(e)

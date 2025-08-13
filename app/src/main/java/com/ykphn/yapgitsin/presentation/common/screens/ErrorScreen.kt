@@ -1,4 +1,4 @@
-package com.ykphn.yapgitsin.presentation.common.screen
+package com.ykphn.yapgitsin.presentation.common.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
