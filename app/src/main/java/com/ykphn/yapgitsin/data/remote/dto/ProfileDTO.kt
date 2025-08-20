@@ -9,6 +9,6 @@ data class ProfileDTO(
     val username: String,
     val bio: String?,
     val date: String,
-    val likes: Int?,
-    val stars: Int?
+    val likes: List<Int>,
+    val stars: List<Int>
 )

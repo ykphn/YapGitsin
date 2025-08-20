@@ -1,11 +1,15 @@
 package com.ykphn.yapgitsin.presentation.main.viewmodels
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.domain.repository.BucketsRepository
 import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
 import com.ykphn.yapgitsin.core.model.UiState
+import com.ykphn.yapgitsin.presentation.main.models.Food
 import com.ykphn.yapgitsin.presentation.main.models.UserProfile
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,6 +29,8 @@ class ProfileViewModel @Inject constructor(
     val userAvatar: StateFlow<ImageBitmap?> = _userAvatar.asStateFlow()
     private val _profileData = MutableStateFlow<UserProfile?>(null)
     val profileData: StateFlow<UserProfile?> = _profileData.asStateFlow()
+    var favorites by mutableStateOf<List<Food>>(emptyList())
+        private set
 
     init {
         loadUserData()

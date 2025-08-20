@@ -6,7 +6,7 @@ data class UserProfile(
     val username: String,
     val bio: String?,
     val joinedDate: String,
-    val likes: Int?,
-    val stars: Int?
+    val likes: List<Int>,
+    val stars: List<Int>
 )
 

@@ -16,7 +16,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class BucketsRepositoryImp @Inject constructor(
+class BucketsRepositoryImpl @Inject constructor(
     private val supabaseClient: SupabaseClient
 ) : BucketsRepository {
 
@@ -48,7 +48,6 @@ class BucketsRepositoryImp @Inject constructor(
         val user = supabaseClient.auth.currentUserOrNull() ?: return@withContext Result.failure(
             exception = IllegalStateException("Kullanıcı oturumu yok.")
         )
-
         val path = "${user.id}.png"
         try {
             val byteArray = supabaseClient.storage.from("avatars").downloadPublic(path)
