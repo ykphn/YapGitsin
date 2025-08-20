@@ -53,6 +53,11 @@ android {
                 value = "\"${localProperties.getProperty("SUPABASE_API_KEY")}\""
             )
 
+            buildConfigField(
+                type = "String",
+                name = "MEAL_API_URL",
+                value = "\"${localProperties.getProperty("MEAL_API_URL")}\""
+            )
         }
     }
     compileOptions {
