@@ -5,8 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -109,7 +109,8 @@ fun FoodListSuccessScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(categories) {
-                if (it.isSelected) {
+                val filteredFoodList = foodList.filter { food -> food.categoryId == it.name }
+                if (it.isSelected && filteredFoodList.isNotEmpty()) {
                     Text(
                         modifier = Modifier.padding(16.dp, 0.dp),
                         text = it.name,
@@ -124,7 +125,6 @@ fun FoodListSuccessScreen(
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         item {} // Empty item to create left padding
-                        val filteredFoodList = foodList.filter { food -> food.categoryId == it.id }
                         items(filteredFoodList) { food ->
                             FoodCard(food = food) {
                                 navController.navigate("receipt/${food.id}")
@@ -198,11 +198,11 @@ fun CategorySelector(
 }
 
 @Composable
-fun FoodCard(food: Food, onClick: (Int) -> Unit) {
+fun FoodCard(food: Food, onClick: (String) -> Unit) {
     OutlinedCard(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp),
+            .width(144.dp)
+            .height(180.dp),
         elevation = CardDefaults.cardElevation(8.dp),
         shape = RoundedCornerShape(16.dp),
         onClick = { onClick(food.id) }
@@ -227,14 +227,21 @@ fun FoodCard(food: Food, onClick: (Int) -> Unit) {
                     .clip(RoundedCornerShape(12.dp))
             )
 
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Column(
-                verticalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxHeight()
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
+                contentAlignment = Alignment.Center,
             ) {
-                Text(text = food.name, style = MaterialTheme.typography.titleMedium)
-                Text(text = "Hazırlık: ${food.preparationTime}", style = MaterialTheme.typography.bodySmall)
-                Text(text = food.servings, style = MaterialTheme.typography.bodySmall)
+                Text(
+                    text = food.name,
+                    maxLines = 2,
+                    letterSpacing = 1.sp,
+                    fontSize = 12.sp,
+                    lineHeight = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }

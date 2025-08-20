@@ -3,7 +3,7 @@ package com.ykphn.yapgitsin.presentation.main.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.model.UiState
-import com.ykphn.yapgitsin.data.repository.DatabaseRepositoryImp
+import com.ykphn.yapgitsin.data.repository.DatabaseRepositoryImpl
 import com.ykphn.yapgitsin.presentation.main.models.Receipt
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReceiptViewModel @Inject constructor(
-    private val repository: DatabaseRepositoryImp
+    private val repository: DatabaseRepositoryImpl
 ) : ViewModel() {
     private val _receiptList = MutableStateFlow<List<Receipt>>(emptyList())
     private val _receipt = MutableStateFlow<Receipt?>(null)
@@ -25,8 +25,8 @@ class ReceiptViewModel @Inject constructor(
     fun loadInitialData(receiptId: Int) {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
-            val foodsResult = loadFoods()
-            if (foodsResult) {
+//            val foodsResult = loadFoods()
+            if (true) {
                 _uiState.value = UiState.Success
                 getReceipt(receiptId)
             } else {
@@ -35,24 +35,24 @@ class ReceiptViewModel @Inject constructor(
         }
     }
 
-    private suspend fun loadFoods(): Boolean {
-        val result = repository.getFoods()
-        return result.onSuccess {
-            _receiptList.value = it.map { food ->
-                Receipt(
-                    id = food.id,
-                    title = food.name,
-                    description = food.description,
-                    instructions = food.recipe,
-                    ingredients = food.ingredients,
-                    imageUrl = food.imageUrl,
-                    time = food.time,
-                    servings = food.servings
-                )
-            }
-            _uiState.value = UiState.Success
-        }.isSuccess
-    }
+//    private suspend fun loadFoods(): Boolean {
+//        val result = repository.getFoods()
+//        return result.onSuccess {
+//            _receiptList.value = it.map { food ->
+//                Receipt(
+//                    id = food.id,
+//                    title = food.name,
+//                    description = food.description,
+//                    instructions = food.recipe,
+//                    ingredients = food.ingredients,
+//                    imageUrl = food.imageUrl,
+//                    time = food.time,
+//                    servings = food.servings
+//                )
+//            }
+//            _uiState.value = UiState.Success
+//        }.isSuccess
+//    }
 
     private fun getReceipt(index: Int) {
         _receipt.value = _receiptList.value.find { food -> food.id == index }

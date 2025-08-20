@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.model.UiState
 import com.ykphn.yapgitsin.presentation.main.models.Food
-import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
+import com.ykphn.yapgitsin.core.domain.repository.MealRepository
 import com.ykphn.yapgitsin.presentation.main.models.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FoodListViewModel @Inject constructor(
-    private val repository: DatabaseRepository
+    private val mealRepository: MealRepository
 ) : ViewModel() {
     private val _allCategoriesSelected = MutableStateFlow(value = true)
     val allCategoriesSelected: StateFlow<Boolean> = _allCategoriesSelected.asStateFlow()
@@ -33,33 +33,50 @@ class FoodListViewModel @Inject constructor(
     private fun loadInitialData() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
-            val categoriesResult = loadCategories()
-            val foodsResult = loadFoods()
 
-            if (categoriesResult && foodsResult) {
+            val categoriesLoaded = loadCategories()
+            if (categoriesLoaded) {
                 _uiState.value = UiState.Success
+                launch { loadFoods() }
             } else {
                 _uiState.value = UiState.Error
             }
         }
     }
 
+
     private suspend fun loadCategories(): Boolean {
-        val result = repository.getCategories()
+        val result = mealRepository.getCategories()
         return result.onSuccess {
-            _category.value = it.map { dto -> Category(dto.id, dto.name, true) }
+            _category.value = it.categories.map { dto ->
+                Category(dto.idCategory, dto.strCategory, true)
+            }
         }.isSuccess
     }
 
     private suspend fun loadFoods(): Boolean {
-        val result = repository.getFoods()
-        return result.onSuccess {
-            _food.value = it.map { dto ->
-                Food(
-                    dto.id, dto.categoryId, dto.name, dto.imageUrl, dto.time, dto.servings
-                )
+        return try {
+            val allFoods = mutableListOf<Food>()
+
+            _category.value.forEach { category ->
+                val result = mealRepository.getMealsByCategory(category.name)
+                result.onSuccess { data ->
+                    val mappedMeals = data.meals.map { dto ->
+                        Food(
+                            id = dto.idMeal,
+                            categoryId = category.name,
+                            name = dto.strMeal,
+                            imageUrl = dto.strMealThumb ?: ""
+                        )
+                    }
+                    allFoods.addAll(mappedMeals)
+                    _food.value = allFoods.toList()
+                }
             }
-        }.isSuccess
+            true
+        } catch (_: Exception) {
+            false
+        }
     }
 
     fun selectAllCategories() {

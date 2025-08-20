@@ -1,10 +1,8 @@
 package com.ykphn.yapgitsin.presentation.main.models
 
 data class Food(
-    val id: Int,
-    val categoryId: Int,
+    val id: String,
+    val categoryId: String,
     val name: String,
-    val imageUrl: String,
-    val preparationTime: String,
-    val servings: String,
+    val imageUrl: String
 )
