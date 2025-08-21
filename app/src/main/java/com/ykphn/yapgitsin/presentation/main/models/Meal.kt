@@ -1,6 +1,6 @@
 package com.ykphn.yapgitsin.presentation.main.models
 
-data class Food(
+data class Meal(
     val id: String,
     val categoryId: String,
     val name: String,

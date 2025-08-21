@@ -1,9 +1,11 @@
 package com.ykphn.yapgitsin.data.repository
 
+import android.util.Log
 import com.ykphn.yapgitsin.core.domain.repository.MealRepository
 import com.ykphn.yapgitsin.data.remote.api.MealApiClient
 import com.ykphn.yapgitsin.data.remote.dto.CategoriesResponse
 import com.ykphn.yapgitsin.data.remote.dto.MealsResponse
+import com.ykphn.yapgitsin.data.remote.dto.RecipesResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -40,8 +42,8 @@ class MealRepositoryImpl @Inject constructor(
         }
     }
 
-    private val cachedMealsById: MutableMap<String, MealsResponse> = mutableMapOf()
-    override suspend fun getMealById(id: String): Result<MealsResponse> = withContext(Dispatchers.IO) {
+    private val cachedMealsById: MutableMap<String, RecipesResponse> = mutableMapOf()
+    override suspend fun getMealById(id: String): Result<RecipesResponse> = withContext(Dispatchers.IO) {
         cachedMealsById[id]?.let { cached ->
             return@withContext Result.success(cached)
         }
@@ -50,6 +52,7 @@ class MealRepositoryImpl @Inject constructor(
             cachedMealsById[id] = response
             Result.success(response)
         } catch (e: Exception) {
+            Log.e("MealRepositoryImpl", "getMealById: ${e.message}")
             Result.failure(e)
         }
     }

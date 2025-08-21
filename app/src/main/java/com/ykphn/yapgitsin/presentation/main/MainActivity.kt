@@ -3,6 +3,7 @@ package com.ykphn.yapgitsin.presentation.main
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
@@ -28,7 +29,16 @@ class MainActivity : ComponentActivity() {
     @Inject lateinit var authRepository: AuthRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(
+                android.graphics.Color.WHITE,  // status bar background
+                android.graphics.Color.BLACK   // status bar ikon rengi
+            ),
+            navigationBarStyle = SystemBarStyle.light(
+                android.graphics.Color.WHITE,
+                android.graphics.Color.BLACK
+            )
+        )
         setContent {
             YapGitsinTheme {
                 val navController = rememberNavController()
