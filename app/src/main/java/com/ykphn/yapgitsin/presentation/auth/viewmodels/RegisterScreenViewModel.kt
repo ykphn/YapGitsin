@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.domain.repository.AuthRepository
-import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
 import com.ykphn.yapgitsin.presentation.auth.state.AuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,8 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterScreenViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
-    private val databaseRepository: DatabaseRepository
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     // StateFlow for sign-up state
@@ -37,6 +35,7 @@ class RegisterScreenViewModel @Inject constructor(
     var errorMessage by mutableStateOf<String?>(null)
         private set
 
+    // Functions to update UI state and validate fields
     fun updateUsername(newUsername: String) {
         username = newUsername
         errorMessage = null
@@ -74,21 +73,17 @@ class RegisterScreenViewModel @Inject constructor(
         viewModelScope.launch {
             _signUpState.value = AuthState.Loading
             authRepository.register(
+                username = username,
                 email = email,
                 password = password
             ).onSuccess {
                 _signUpState.value = AuthState.Success
-                databaseRepository.createProfile(username)
-                    .onSuccess {
-                        _signUpState.value = AuthState.Success
-                    }
             }.onFailure { exception ->
                 val errorMessage = exception.message.orEmpty().lowercase()
                 when {
                     "email" in errorMessage -> _signUpState.value = AuthState.Error("Invalid MAIL!")
                     "password" in errorMessage -> _signUpState.value =
                         AuthState.Error("Invalid PASSWORD!")
-
                     else -> _signUpState.value = AuthState.Error("General ERROR")
                 }
             }

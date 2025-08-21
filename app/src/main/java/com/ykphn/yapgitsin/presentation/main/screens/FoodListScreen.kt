@@ -45,13 +45,13 @@ import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
 import com.ykphn.yapgitsin.presentation.common.screens.ErrorScreen
 import com.ykphn.yapgitsin.presentation.main.viewmodels.FoodListViewModel
 import com.ykphn.yapgitsin.presentation.main.models.Category
-import com.ykphn.yapgitsin.presentation.main.models.Food
+import com.ykphn.yapgitsin.presentation.main.models.Meal
 
 @Composable
 fun FoodListScreen(modifier: Modifier = Modifier, navController: NavHostController) {
     val viewModel: FoodListViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
-    val foodList by viewModel.food.collectAsState()
+    val foodList by viewModel.meal.collectAsState()
     val categories by viewModel.category.collectAsState()
     val allCategoriesSelected by viewModel.allCategoriesSelected.collectAsState()
 
@@ -73,7 +73,7 @@ fun FoodListScreen(modifier: Modifier = Modifier, navController: NavHostControll
                 navController = navController,
                 allCategoriesSelected = allCategoriesSelected,
                 categories = categories,
-                foodList = foodList,
+                mealList = foodList,
                 selectAllCategories = { viewModel.selectAllCategories() },
                 toggleCategorySelection = { viewModel.toggleCategorySelection(it) }
             )
@@ -91,7 +91,7 @@ fun FoodListSuccessScreen(
     navController: NavController,
     allCategoriesSelected: Boolean,
     categories: List<Category>,
-    foodList: List<Food>,
+    mealList: List<Meal>,
     selectAllCategories: () -> Unit,
     toggleCategorySelection: (Int) -> Unit
 ) {
@@ -109,7 +109,7 @@ fun FoodListSuccessScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(categories) {
-                val filteredFoodList = foodList.filter { food -> food.categoryId == it.name }
+                val filteredFoodList = mealList.filter { food -> food.categoryId == it.name }
                 if (it.isSelected && filteredFoodList.isNotEmpty()) {
                     Text(
                         modifier = Modifier.padding(16.dp, 0.dp),
@@ -126,7 +126,7 @@ fun FoodListSuccessScreen(
                     ) {
                         item {} // Empty item to create left padding
                         items(filteredFoodList) { food ->
-                            FoodCard(food = food) {
+                            FoodCard(meal = food) {
                                 navController.navigate("receipt/${food.id}")
                             }
                         }
@@ -198,14 +198,14 @@ fun CategorySelector(
 }
 
 @Composable
-fun FoodCard(food: Food, onClick: (String) -> Unit) {
+fun FoodCard(meal: Meal, onClick: (String) -> Unit) {
     OutlinedCard(
         modifier = Modifier
             .width(144.dp)
             .height(180.dp),
         elevation = CardDefaults.cardElevation(8.dp),
         shape = RoundedCornerShape(16.dp),
-        onClick = { onClick(food.id) }
+        onClick = { onClick(meal.id) }
     ) {
         Column(
             modifier = Modifier
@@ -213,13 +213,13 @@ fun FoodCard(food: Food, onClick: (String) -> Unit) {
                 .padding(12.dp),
         ) {
             val request = ImageRequest.Builder(LocalContext.current)
-                .data(food.imageUrl)
+                .data(meal.imageUrl)
                 .crossfade(true)
                 .build()
 
             AsyncImage(
                 model = request,
-                contentDescription = food.name,
+                contentDescription = meal.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(120.dp)
@@ -234,7 +234,7 @@ fun FoodCard(food: Food, onClick: (String) -> Unit) {
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = food.name,
+                    text = meal.name,
                     maxLines = 2,
                     letterSpacing = 1.sp,
                     fontSize = 12.sp,

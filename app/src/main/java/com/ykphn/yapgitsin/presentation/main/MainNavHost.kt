@@ -2,7 +2,6 @@ package com.ykphn.yapgitsin.presentation.main
 
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -37,9 +36,8 @@ fun MainNavHost(
                 route = "receipt/{receiptId}",
                 arguments = listOf(navArgument("receiptId") { type = NavType.StringType })
             ) { backStackEntry ->
-                val receiptId = backStackEntry.arguments?.getString("receiptId")?.toIntOrNull()
-                if (receiptId != null) {
-                    ReceiptScreen(receiptId = receiptId)
+                backStackEntry.arguments?.getString("receiptId")?.let {
+                    ReceiptScreen(recipeId = it)
                 }
             }
         }

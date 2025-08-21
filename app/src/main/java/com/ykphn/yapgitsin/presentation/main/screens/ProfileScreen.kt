@@ -54,7 +54,7 @@ import com.ykphn.yapgitsin.core.model.UiState
 import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
 import com.ykphn.yapgitsin.presentation.common.screens.ErrorScreen
 import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
-import com.ykphn.yapgitsin.presentation.main.models.Food
+import com.ykphn.yapgitsin.presentation.main.models.Meal
 import com.ykphn.yapgitsin.presentation.main.viewmodels.ProfileViewModel
 import com.ykphn.yapgitsin.presentation.main.models.UserProfile
 
@@ -93,7 +93,7 @@ fun ProfileSuccessScreen(
     modifier: Modifier = Modifier,
     userAvatar: ImageBitmap?,
     userData: UserProfile,
-    favorites: List<Food>,
+    favorites: List<Meal>,
     buttonClicked: () -> Unit
 ) {
     Column(
@@ -110,14 +110,14 @@ fun ProfileSuccessScreen(
         EditProfileButton(onClick = buttonClicked)
         FoodCardWithActions(
             title = "Favoriler",
-            foods = favorites,
+            meals = favorites,
             onClick = {},
             onLikeClick = {},
             onStarClick = {}
         )
         FoodCardWithActions(
             title = "Yıldızlılar",
-            foods = favorites,
+            meals = favorites,
             onClick = {},
             onLikeClick = {},
             onStarClick = {}
@@ -258,7 +258,7 @@ fun EditProfileButton(onClick: () -> Unit) {
 fun FoodCardWithActions(
     modifier: Modifier = Modifier,
     title: String,
-    foods: List<Food>,
+    meals: List<Meal>,
     onClick: (String) -> Unit,
     onLikeClick: (String) -> Unit,
     onStarClick: (String) -> Unit
@@ -280,7 +280,7 @@ fun FoodCardWithActions(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         item { }
-        items(foods) { food ->
+        items(meals) { food ->
             OutlinedCard(
                 modifier = Modifier
                     .fillMaxWidth()

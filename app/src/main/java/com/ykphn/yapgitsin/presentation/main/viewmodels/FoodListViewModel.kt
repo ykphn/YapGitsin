@@ -3,7 +3,7 @@ package com.ykphn.yapgitsin.presentation.main.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.model.UiState
-import com.ykphn.yapgitsin.presentation.main.models.Food
+import com.ykphn.yapgitsin.presentation.main.models.Meal
 import com.ykphn.yapgitsin.core.domain.repository.MealRepository
 import com.ykphn.yapgitsin.presentation.main.models.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,8 +21,8 @@ class FoodListViewModel @Inject constructor(
     val allCategoriesSelected: StateFlow<Boolean> = _allCategoriesSelected.asStateFlow()
     private val _category = MutableStateFlow<List<Category>>(emptyList())
     val category: StateFlow<List<Category>> = _category.asStateFlow()
-    private val _food = MutableStateFlow<List<Food>>(emptyList())
-    val food: StateFlow<List<Food>> = _food.asStateFlow()
+    private val _meal = MutableStateFlow<List<Meal>>(emptyList())
+    val meal: StateFlow<List<Meal>> = _meal.asStateFlow()
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
@@ -56,21 +56,21 @@ class FoodListViewModel @Inject constructor(
 
     private suspend fun loadFoods(): Boolean {
         return try {
-            val allFoods = mutableListOf<Food>()
+            val allMeals = mutableListOf<Meal>()
 
             _category.value.forEach { category ->
                 val result = mealRepository.getMealsByCategory(category.name)
                 result.onSuccess { data ->
                     val mappedMeals = data.meals.map { dto ->
-                        Food(
+                        Meal(
                             id = dto.idMeal,
                             categoryId = category.name,
                             name = dto.strMeal,
                             imageUrl = dto.strMealThumb ?: ""
                         )
                     }
-                    allFoods.addAll(mappedMeals)
-                    _food.value = allFoods.toList()
+                    allMeals.addAll(mappedMeals)
+                    _meal.value = allMeals.toList()
                 }
             }
             true

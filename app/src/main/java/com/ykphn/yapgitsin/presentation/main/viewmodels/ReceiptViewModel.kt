@@ -2,9 +2,9 @@ package com.ykphn.yapgitsin.presentation.main.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ykphn.yapgitsin.core.domain.repository.MealRepository
 import com.ykphn.yapgitsin.core.model.UiState
-import com.ykphn.yapgitsin.data.repository.DatabaseRepositoryImpl
-import com.ykphn.yapgitsin.presentation.main.models.Receipt
+import com.ykphn.yapgitsin.presentation.main.models.Recipe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,47 +14,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReceiptViewModel @Inject constructor(
-    private val repository: DatabaseRepositoryImpl
+    private val repository: MealRepository
 ) : ViewModel() {
-    private val _receiptList = MutableStateFlow<List<Receipt>>(emptyList())
-    private val _receipt = MutableStateFlow<Receipt?>(null)
-    val receipt: StateFlow<Receipt?> = _receipt.asStateFlow()
+    private val _recipe = MutableStateFlow<Recipe?>(null)
+    val recipe: StateFlow<Recipe?> = _recipe.asStateFlow()
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
-    fun loadInitialData(receiptId: Int) {
+    fun loadInitialData(receiptId: String) {
         viewModelScope.launch {
-            _uiState.value = UiState.Loading
-//            val foodsResult = loadFoods()
-            if (true) {
+            val result = repository.getMealById(receiptId)
+            result.onSuccess { dto ->
+                _recipe.value = dto.meals[0].toDomain()
                 _uiState.value = UiState.Success
-                getReceipt(receiptId)
-            } else {
+            }.onFailure {
                 _uiState.value = UiState.Error
             }
         }
-    }
-
-//    private suspend fun loadFoods(): Boolean {
-//        val result = repository.getFoods()
-//        return result.onSuccess {
-//            _receiptList.value = it.map { food ->
-//                Receipt(
-//                    id = food.id,
-//                    title = food.name,
-//                    description = food.description,
-//                    instructions = food.recipe,
-//                    ingredients = food.ingredients,
-//                    imageUrl = food.imageUrl,
-//                    time = food.time,
-//                    servings = food.servings
-//                )
-//            }
-//            _uiState.value = UiState.Success
-//        }.isSuccess
-//    }
-
-    private fun getReceipt(index: Int) {
-        _receipt.value = _receiptList.value.find { food -> food.id == index }
     }
 }
