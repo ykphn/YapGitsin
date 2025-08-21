@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -113,16 +114,20 @@ fun RegisterHeader(modifier: Modifier = Modifier) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.register_avatar),
-            contentDescription = "Register Illustration",
+            contentDescription = stringResource(R.string.register_image_desc),
             modifier = Modifier
                 .height(200.dp)
                 .fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Hoş Geldiniz!", fontWeight = FontWeight.Bold, fontSize = 24.sp)
+        Text(
+            text = stringResource(R.string.register_welcome_title),
+            fontWeight = FontWeight.Bold,
+            fontSize = 24.sp
+        )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "YapGitsin'e katılarak kendi tariflerinizi paylaşabilir, binlerce lezzete ulaşabilirsiniz.",
+            text = stringResource(R.string.register_welcome_description),
             fontSize = 16.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Italic,
@@ -150,54 +155,59 @@ fun RegisterForm(
     var passwordRepeatVisible by remember { mutableStateOf(false) }
 
     Column(
-        modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedTextField(
             value = username,
             onValueChange = { setUserName(it) },
-            label = { Text("Kullanıcı Adı") },
+            label = { Text(text = stringResource(R.string.username_label)) },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
             value = email,
             onValueChange = { setEmail(it) },
-            label = { Text("Email") },
+            label = { Text(text = stringResource(R.string.email_label)) },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
             value = password,
             onValueChange = { setPassword(it) },
-            label = { Text("Şifre") },
+            label = { Text(text = stringResource(R.string.password_label)) },
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Image(
-                        painter = painterResource(id = if (passwordVisible) R.drawable.eye_open else R.drawable.eye_close),
-                        contentDescription = if (passwordVisible) "Şifreyi Gizle" else "Şifreyi Göster"
+                        painter = painterResource(
+                            id = if (passwordVisible) R.drawable.eye_open else R.drawable.eye_close
+                        ),
+                        contentDescription =
+                            if (passwordVisible) stringResource(R.string.hide_password)
+                            else stringResource(R.string.show_password)
                     )
                 }
-            }
-        )
+            })
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
             value = passwordRepeat,
             onValueChange = { setRepeatPassword(it) },
-            label = { Text("Şifre Tekrar") },
+            label = { Text(text = stringResource(R.string.password_repeat_label)) },
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = if (passwordRepeatVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
                 IconButton(onClick = { passwordRepeatVisible = !passwordRepeatVisible }) {
                     Image(
-                        painter = painterResource(id = if (passwordRepeatVisible) R.drawable.eye_open else R.drawable.eye_close),
-                        contentDescription = if (passwordRepeatVisible) "Şifreyi Gizle" else "Şifreyi Göster"
+                        painter = painterResource(
+                            id = if (passwordRepeatVisible) R.drawable.eye_open else R.drawable.eye_close
+                        ),
+                        contentDescription =
+                            if (passwordRepeatVisible) stringResource(R.string.hide_password)
+                            else stringResource(R.string.show_password)
                     )
                 }
-            }
-        )
+            })
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = errorMessage.orEmpty(),
@@ -208,26 +218,28 @@ fun RegisterForm(
         )
         Spacer(modifier = Modifier.height(12.dp))
         Button(
-            onClick = { onRegisterClick() },
-            modifier = Modifier
+            onClick = { onRegisterClick() }, modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
-            Text("Kayıt Ol", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            Text(
+                text = stringResource(R.string.register_button),
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
+            )
         }
     }
 }
 
 @Composable
 fun RegisterSignInRow(
-    modifier: Modifier = Modifier,
-    onSignInClick: () -> Unit
+    modifier: Modifier = Modifier, onSignInClick: () -> Unit
 ) {
     Row(modifier = modifier) {
-        Text(text = "Zaten hesabınız var mı?", letterSpacing = 1.sp)
+        Text(text = stringResource(R.string.register_signin_prefix), letterSpacing = 1.sp)
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            text = "Giriş Yap!",
+            text = stringResource(R.string.register_signin_clickable),
             letterSpacing = 1.sp,
             modifier = Modifier.clickable { onSignInClick() },
             color = Color.Blue,

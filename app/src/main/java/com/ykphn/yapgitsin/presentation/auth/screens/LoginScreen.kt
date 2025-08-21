@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -61,11 +62,19 @@ fun LoginScreen(
     LaunchedEffect(signInState) {
         when (signInState) {
             is AuthState.Error -> {
-                Toast.makeText(context, "Geçersiz kimlik bilgileri.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.login_error_invalid_credentials),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             is AuthState.Success -> {
-                Toast.makeText(context, "Oturum açıldı", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.login_success),
+                    Toast.LENGTH_SHORT
+                ).show()
                 (context as? Activity)?.let { activity ->
                     context.startActivity(Intent(context, MainActivity::class.java))
                     activity.finish()
@@ -116,16 +125,20 @@ fun LoginHeader(modifier: Modifier = Modifier) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.login_avatar),
-            contentDescription = "Login Illustration",
+            contentDescription = stringResource(R.string.login_image_desc),
             modifier = Modifier
                 .height(200.dp)
                 .fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Merhabalar", fontWeight = FontWeight.Bold, fontSize = 24.sp)
+        Text(
+            text = stringResource(R.string.login_greeting),
+            fontWeight = FontWeight.Bold,
+            fontSize = 24.sp
+        )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "YapGitsin'e hoş geldiniz! Binlerce yemek tarifine kolayca ulaşın ve kendi tariflerinizi paylaşın.",
+            text = stringResource(R.string.login_welcome_message),
             fontSize = 16.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Italic,
@@ -143,7 +156,7 @@ fun LoginForm(
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onLoginClick: () -> Unit
-    ) {
+) {
     var passwordVisible by remember { mutableStateOf(false) }
 
     Column(
@@ -152,27 +165,33 @@ fun LoginForm(
         OutlinedTextField(
             value = email,
             onValueChange = { onEmailChange(it) },
-            label = { Text("Email") },
+            label = { Text(stringResource(R.string.email_label)) },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
             value = password,
             onValueChange = { onPasswordChange(it) },
-            label = { Text("Şifre") },
+            label = { Text(stringResource(R.string.password_label)) },
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Image(
-                        painter = painterResource(id = if (passwordVisible) R.drawable.eye_open else R.drawable.eye_close),
-                        contentDescription = if (passwordVisible) "Şifreyi Gizle" else "Şifreyi Göster"
+                        painter = painterResource(
+                            id =
+                                if (passwordVisible) R.drawable.eye_open
+                                else R.drawable.eye_close
+                        ),
+                        contentDescription =
+                            if (passwordVisible) stringResource(R.string.hide_password)
+                            else stringResource(R.string.show_password)
                     )
                 }
             })
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = error ?: "",
+            text = error ?: stringResource(R.string.empty_string),
             color = Color.Red,
             fontSize = 12.sp,
             letterSpacing = 1.sp,
@@ -185,7 +204,11 @@ fun LoginForm(
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
-            Text("Giriş Yap", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            Text(
+                text = stringResource(R.string.login_button),
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
+            )
         }
     }
 }
@@ -203,17 +226,17 @@ fun SocialLoginRow(
         OutlinedButton(
             onClick = onAppleClick, modifier = Modifier.padding(horizontal = 4.dp)
         ) {
-            Text("Apple")
+            Text(stringResource(R.string.social_apple))
         }
         OutlinedButton(
             onClick = onFacebookClick, modifier = Modifier.padding(horizontal = 4.dp)
         ) {
-            Text("Facebook")
+            Text(stringResource(R.string.social_facebook))
         }
         OutlinedButton(
             onClick = onGmailClick, modifier = Modifier.padding(horizontal = 4.dp)
         ) {
-            Text("Gmail")
+            Text(stringResource(R.string.social_gmail))
         }
     }
 }
@@ -224,10 +247,10 @@ fun SignUpRow(
     onSignUpClick: () -> Unit
 ) {
     Row(modifier = modifier) {
-        Text(text = "Hesabınız yok mu?", letterSpacing = 1.sp)
+        Text(text = stringResource(R.string.signup_prefix), letterSpacing = 1.sp)
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            text = "Kayıt Ol!",
+            text = stringResource(R.string.signup_clickable),
             letterSpacing = 1.sp,
             modifier = Modifier.clickable { onSignUpClick() },
             color = Color.Blue,

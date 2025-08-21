@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Yap Gitsin</string>
+    <string name="title_activity_auth">AuthActivity</string>
+    <string name="empty_string"> </string>
+
+    <!-- Forgot Password Strings -->
+    <string name="forgot_password_title">Forgot Password</string>
+    <string name="forgot_password_description">Enter your email and we’ll send you a password reset link.</string>
+    <string name="send_reset_link">Send Reset Link</string>
+    <string name="back_to_login_prefix">To return to the login screen</string>
+    <string name="back_to_login_clickable">Click Here</string>
+    <string name="forgot_password_image_desc">Password Reset Illustration</string>
+
+    <!-- Login Screen Strings -->
+    <string name="login_greeting">Hello</string>
+    <string name="login_welcome_message">Welcome to YapGitsin! Access thousands of recipes easily and share your own creations.</string>
+    <string name="login_button">Log In</string>
+    <string name="login_error_invalid_credentials">Invalid credentials.</string>
+    <string name="login_success">Logged in successfully</string>
+    <string name="social_apple">Apple</string>
+    <string name="social_facebook">Facebook</string>
+    <string name="social_gmail">Gmail</string>
+    <string name="signup_prefix">Don’t have an account?</string>
+    <string name="signup_clickable">Sign Up!</string>
+    <string name="login_image_desc">Login Illustration</string>
+
+    <!-- Register Screen Strings -->
+    <string name="register_welcome_title">Welcome!</string>
+    <string name="register_welcome_description">By joining YapGitsin, you can share your own recipes and explore thousands of delicious meals.</string>
+    <string name="username_label">Username</string>
+    <string name="password_repeat_label">Repeat Password</string>
+    <string name="register_button">Sign Up</string>
+    <string name="register_signin_prefix">Already have an account?</string>
+    <string name="register_signin_clickable">Log In!</string>
+    <string name="register_image_desc">Register Illustration</string>
+
+    <!-- Common Strings-->
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="show_password">Show Password</string>
+    <string name="hide_password">Hide Password</string>
+</resources>
