@@ -10,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +20,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -37,6 +39,7 @@ import coil3.compose.AsyncImage
 import com.ykphn.yapgitsin.core.model.UiState
 import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
 import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
+import com.ykphn.yapgitsin.presentation.main.models.EditProfileStep
 import com.ykphn.yapgitsin.presentation.main.viewmodels.EditProfileViewModel
 
 @Composable
@@ -61,16 +64,17 @@ fun EditProfileScreen(
         UiState.Idle -> SetupScreen(
             modifier = modifier,
             context = context,
+            step = viewModel.step,
             photoUri = viewModel.uri,
             name = viewModel.name,
-            username = viewModel.username,
             bio = viewModel.bio,
             error = viewModel.errorMessage,
             onPhotoUriChange = viewModel::updateUri,
             onNameChange = viewModel::updateName,
-            onUsernameChange = viewModel::updateUsername,
             onBioChange = viewModel::updateBio,
-            onUpdateClick = viewModel::onUpdateClick
+            onBackClick = viewModel::onBackClick,
+            onUpdateAvatarClick = viewModel::updateProfileAvatar,
+            onUpdateProfileClick = viewModel::updateProfileField
         )
 
         UiState.Loading -> {
@@ -80,7 +84,7 @@ fun EditProfileScreen(
 
         UiState.Success -> {
             Toast.makeText(context, "Profil başarıyla güncellendi", Toast.LENGTH_LONG).show()
-            navController.popBackStack()
+            navController.navigate("profile")
         }
     }
 
@@ -90,16 +94,63 @@ fun EditProfileScreen(
 fun SetupScreen(
     modifier: Modifier = Modifier,
     context: Context,
+    step: EditProfileStep,
     photoUri: Uri?,
     name: String,
-    username: String,
     bio: String,
     error: String?,
     onPhotoUriChange: (Uri) -> Unit,
     onNameChange: (String) -> Unit,
-    onUsernameChange: (String) -> Unit,
     onBioChange: (String) -> Unit,
-    onUpdateClick: (Context) -> Unit,
+    onBackClick: () -> Unit,
+    onUpdateAvatarClick: (Context) -> Unit,
+    onUpdateProfileClick: () -> Unit
+) {
+
+    Column (
+        modifier = modifier.fillMaxSize()
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(48.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = error ?: "Lütfen tüm kutuları doldurun",
+                color = error?.let { Color.Red } ?: Color.Blue,
+                textAlign = TextAlign.Center,
+                letterSpacing = 1.sp,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        when (step) {
+            EditProfileStep.PHOTO -> PhotoStep(
+                photoUri = photoUri,
+                onPhotoUriChange = onPhotoUriChange,
+                onFinish = { onUpdateAvatarClick(context) }
+            )
+
+            EditProfileStep.INFO -> InfoStep(
+                name = name,
+                bio = bio,
+                onNameChange = onNameChange,
+                onBioChange = onBioChange,
+                onBack = onBackClick,
+                onFinish = { onUpdateProfileClick() }
+            )
+        }
+    }
+}
+
+@Composable
+fun PhotoStep(
+    modifier: Modifier = Modifier,
+    photoUri: Uri?,
+    onPhotoUriChange: (Uri) -> Unit,
+    onFinish: () -> Unit
 ) {
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -109,22 +160,11 @@ fun SetupScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = error ?: "Lütfen tüm kutuları doldurun",
-            color = error?.let { Color.Red } ?: Color.Blue,
-            textAlign = TextAlign.Center,
-            letterSpacing = 1.sp,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-
-        // Fotoğraf Yükleyici
         Box(
             modifier = Modifier
-                .weight(1f)
                 .aspectRatio(1f)
                 .clip(CircleShape)
                 .background(Color.LightGray)
@@ -139,41 +179,62 @@ fun SetupScreen(
                     contentScale = ContentScale.Crop
                 )
             } else {
-                Text("Fotoğraf Ekle", textAlign = TextAlign.Center)
+                Text("Fotoğraf Ekle")
             }
         }
 
+        Button(
+            onClick = onFinish,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 24.dp)
+        ) {
+            Text("Devam Et")
+        }
+    }
+}
+
+@Composable
+fun InfoStep(
+    modifier: Modifier = Modifier,
+    name: String,
+    bio: String,
+    onNameChange: (String) -> Unit,
+    onBioChange: (String) -> Unit,
+    onBack: () -> Unit,
+    onFinish: () -> Unit
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
         OutlinedTextField(
             value = name,
-            onValueChange = { onNameChange(it) },
+            onValueChange = onNameChange,
             label = { Text("Ad Soyad") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
-            value = username,
-            onValueChange = { onUsernameChange(it) },
-            label = { Text("Kullanıcı Adı") },
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        OutlinedTextField(
             value = bio,
-            onValueChange = { onBioChange(it) },
+            onValueChange = onBioChange,
             label = { Text("Hakkında") },
+            maxLines = 5,
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
-            maxLines = 5
+                .weight(1f)
         )
 
-        Button(
-            onClick = { onUpdateClick(context) },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Kaydet")
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = onBack, modifier = Modifier.weight(1f)) {
+                Text("Geri")
+            }
+            Button(onClick = onFinish, modifier = Modifier.weight(1f)) {
+                Text("Kaydet")
+            }
         }
     }
 }

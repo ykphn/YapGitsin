@@ -4,5 +4,5 @@ import com.ykphn.yapgitsin.data.remote.dto.ProfileResponse
 
 interface DatabaseRepository {
     suspend fun getProfile(): Result<ProfileResponse>
-    suspend fun updateProfile(name: String, username: String, bio: String): Result<Unit>
+    suspend fun updateProfile(name: String, bio: String): Result<Unit>
 }

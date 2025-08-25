@@ -80,7 +80,11 @@ fun ProfileScreen(
                     userAvatar = avatar,
                     userData = userData!!,
                     favorites = favorites,
-                    buttonClicked = { navController.navigate("edit") }
+                    buttonClicked = {
+                        navController.navigate("edit") {
+                            popUpTo("food") { inclusive = false }
+                        }
+                    }
                 )
             }
         }

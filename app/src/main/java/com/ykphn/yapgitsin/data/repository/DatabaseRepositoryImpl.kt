@@ -41,7 +41,6 @@ class DatabaseRepositoryImpl @Inject constructor(
 
     override suspend fun updateProfile(
         name: String,
-        username: String,
         bio: String
     ): Result<Unit> = withContext(Dispatchers.IO) {
         val user = supabaseClient.auth.currentUserOrNull() ?: return@withContext Result.failure(
@@ -53,7 +52,6 @@ class DatabaseRepositoryImpl @Inject constructor(
                 .update(
                     mapOf(
                         "name" to name,
-                        "username" to username,
                         "bio" to bio
                     )
                 ) {
