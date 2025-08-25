@@ -24,16 +24,7 @@ class AuthActivity : ComponentActivity() {
     @Inject lateinit var supabaseClient: SupabaseClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.light(
-                android.graphics.Color.WHITE,  // status bar background
-                android.graphics.Color.BLACK   // status bar ikon rengi
-            ),
-            navigationBarStyle = SystemBarStyle.light(
-                android.graphics.Color.WHITE,
-                android.graphics.Color.BLACK
-            )
-        )
+        enableEdgeToEdge()
         lifecycleScope.launch {
             supabaseClient.auth.awaitInitialization()
             val user = supabaseClient.auth.currentUserOrNull()
