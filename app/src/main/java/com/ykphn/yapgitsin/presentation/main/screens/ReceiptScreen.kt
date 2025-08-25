@@ -58,7 +58,10 @@ fun ReceiptScreen(
 
         UiState.Success -> {
             ReceiptSuccessScreen(
-                modifier = modifier, recipe = recipe!!
+                modifier = modifier,
+                recipe = recipe!!,
+                isStarred = viewModel.isStarred,
+                addFavorite = { viewModel.addFavorite(recipeId.toInt()) }
             )
         }
     }
@@ -67,7 +70,9 @@ fun ReceiptScreen(
 @Composable
 fun ReceiptSuccessScreen(
     modifier: Modifier = Modifier,
-    recipe: Recipe
+    recipe: Recipe,
+    isStarred: Boolean,
+    addFavorite: () -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -87,15 +92,18 @@ fun ReceiptSuccessScreen(
                 )
 
                 IconButton(
-                    onClick = { /* viewModel.toggleSaved(recipe.id) */ },
+                    onClick = addFavorite,
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .padding(12.dp)
                 ) {
                     Icon(
+                        modifier = Modifier.size(32.dp),
                         imageVector = Icons.Filled.Star,
                         contentDescription = stringResource(R.string.star_button),
-                        tint = MaterialTheme.colorScheme.primary
+                        tint =
+                            if (isStarred) MaterialTheme.colorScheme.primary
+                            else MaterialTheme.colorScheme.onSurface
                     )
                 }
             }

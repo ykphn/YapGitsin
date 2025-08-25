@@ -1,6 +1,7 @@
 package com.ykphn.yapgitsin.presentation.main.models
 
 data class Recipe(
+    val id: String,
     val imageUrl: String?,
     val name: String,
     val instructions: String?,

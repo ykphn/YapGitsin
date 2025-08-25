@@ -107,6 +107,7 @@ data class RecipesResponse(
                     ?.let { Recipe.Ingredients(it, strMeasure20.orEmpty()) }
             )
             return Recipe(
+                id = idMeal,
                 name = strMeal,
                 imageUrl = strMealThumb,
                 instructions = strInstructions,
