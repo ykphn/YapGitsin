@@ -3,6 +3,13 @@
     <string name="title_activity_auth">AuthActivity</string>
     <string name="empty_string"> </string>
 
+    <!-- Common Strings-->
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="show_password">Show Password</string>
+    <string name="hide_password">Hide Password</string>
+    <string name="all">All</string>
+
     <!-- Forgot Password Strings -->
     <string name="forgot_password_title">Forgot Password</string>
     <string name="forgot_password_description">Enter your email and we’ll send you a password reset link.</string>
@@ -34,9 +41,30 @@
     <string name="register_signin_clickable">Log In!</string>
     <string name="register_image_desc">Register Illustration</string>
 
-    <!-- Common Strings-->
-    <string name="email_label">Email</string>
-    <string name="password_label">Password</string>
-    <string name="show_password">Show Password</string>
-    <string name="hide_password">Hide Password</string>
+    <!-- Profile Screen Strings -->
+    <string name="profile_incomplete_message">This profile is not fully completed. You can complete your profile using the button below.</string>
+    <string name="default_bio_message">We’d love to know you, please enter your name!</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="profile_default_name">Is your name missing?</string>
+    <string name="profile_joined_date">Joined: %1$s</string>
+    <string name="stat_likes">Likes</string>
+    <string name="stat_stars">Stars</string>
+    <string name="favorites">Favorites</string>
+    <string name="starred">Starred</string>
+    <string name="like_button">Like</string>
+    <string name="star_button">Star</string>
+    <string name="user_avatar">User Avatar</string>
+    <string name="default_avatar">Default Avatar</string>
+
+    <!-- Receipt Screen Strings -->
+    <string name="food_image">Food image</string>
+    <string name="instructions">Instructions</string>
+    <string name="ingredients">Ingredients</string>
+
+    <!-- Common Screen Strings -->
+    <string name="error_title">We encountered a problem!</string>
+    <string name="error_description">Please check your internet connection and try again.</string>
+    <string name="network_error_content_description">Network Error</string>
+    <string name="loading_text">Loading</string>
+
 </resources>

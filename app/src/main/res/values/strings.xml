@@ -3,6 +3,13 @@
     <string name="title_activity_auth">AuthActivity</string>
     <string name="empty_string"> </string>
 
+    <!-- Common Strings-->
+    <string name="email_label">E-posta</string>
+    <string name="password_label">Şifre</string>
+    <string name="show_password">Şifreyi Göster</string>
+    <string name="hide_password">Şifreyi Gizle</string>
+    <string name="all">Hepsi</string>
+
     <!-- Forgot Password Strings -->
     <string name="forgot_password_title">Şifremi Unuttum</string>
     <string name="forgot_password_description">E-posta adresinizi girin, size şifre sıfırlama bağlantısı göndereceğiz.</string>
@@ -34,10 +41,30 @@
     <string name="register_signin_clickable">Giriş Yap!</string>
     <string name="register_image_desc">Kayıt Görseli</string>
 
-    <!-- Common Strings-->
-    <string name="email_label">E-posta</string>
-    <string name="password_label">Şifre</string>
-    <string name="show_password">Şifreyi Göster</string>
-    <string name="hide_password">Şifreyi Gizle</string>
+    <!-- Profile Screen Strings -->
+    <string name="profile_incomplete_message">Bu profil tam olarak oluşturulmamış. Aşağıdaki butondan profilinizi tamamlayabilirsiniz.</string>
+    <string name="default_bio_message">Seni tanımak istiyoruz, ismini gir lütfen!</string>
+    <string name="edit_profile">Profili Düzenle</string>
+    <string name="profile_default_name">Adın mı kayıp?</string>
+    <string name="profile_joined_date">Katıldı</string>
+    <string name="stat_likes">Beğeni</string>
+    <string name="stat_stars">Yıldız</string>
+    <string name="favorites">Favoriler</string>
+    <string name="starred">Yıldızlılar</string>
+    <string name="like_button">Beğen</string>
+    <string name="star_button">Yıldızla</string>
+    <string name="user_avatar">Kullanıcı Avatarı</string>
+    <string name="default_avatar">Varsayılan Avatar</string>
+
+    <!-- Receipt Screen Strings -->
+    <string name="food_image">Yemek resmi</string>
+    <string name="instructions">Hazırlanış</string>
+    <string name="ingredients">Malzemeler</string>
+
+    <!-- Common Screen Strings -->
+    <string name="error_title">Bir sorun ile karşılaştık!</string>
+    <string name="error_description">İnternet bağlantınızı kontrol edip tekrar deneyebilirsiniz.</string>
+    <string name="network_error_content_description">Ağ Hatası</string>
+    <string name="loading_text">Yükleniyor</string>
 
 </resources>

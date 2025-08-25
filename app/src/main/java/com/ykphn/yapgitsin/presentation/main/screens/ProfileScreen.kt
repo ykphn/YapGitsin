@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -103,20 +104,20 @@ fun ProfileSuccessScreen(
         ProfileIncompleteCard(status = userData.fullName)
         ProfileSection(userAvatar, userData)
         Text(
-            text = userData.bio ?: "Seni tanımak istiyoruz, ismini gir lütfen!",
+            text = userData.bio ?: stringResource(R.string.default_bio_message),
             style = MaterialTheme.typography.bodyMedium
         )
         Spacer(modifier = Modifier.height(12.dp))
         EditProfileButton(onClick = buttonClicked)
         FoodCardWithActions(
-            title = "Favoriler",
+            title = stringResource(R.string.favorites),
             meals = favorites,
             onClick = {},
             onLikeClick = {},
             onStarClick = {}
         )
         FoodCardWithActions(
-            title = "Yıldızlılar",
+            title = stringResource(R.string.starred),
             meals = favorites,
             onClick = {},
             onLikeClick = {},
@@ -140,7 +141,7 @@ fun ProfileIncompleteCard(
             elevation = CardDefaults.cardElevation(8.dp)
         ) {
             Text(
-                text = "Bu profil tam olarak oluşturulmamış. Aşağıdaki butondan profilinizi tamamlayabilirsiniz.",
+                text = stringResource(R.string.profile_incomplete_message),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onError,
                 modifier = Modifier
@@ -173,13 +174,13 @@ fun ProfileSection(avatar: ImageBitmap?, userProfile: UserProfile) {
             avatar?.let {
                 Image(
                     bitmap = avatar,
-                    contentDescription = "User Avatar",
+                    contentDescription = stringResource(R.string.user_avatar),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
                 )
             } ?: Image(
                 painter = painterResource(id = R.drawable.profile_avatar),
-                contentDescription = "Default Avatar",
+                contentDescription = stringResource(R.string.default_avatar),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
             )
@@ -190,7 +191,7 @@ fun ProfileSection(avatar: ImageBitmap?, userProfile: UserProfile) {
             horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = userProfile.fullName ?: "Adın mı kayıp?",
+                text = userProfile.fullName ?: stringResource(R.string.profile_default_name),
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.End
             )
@@ -204,14 +205,20 @@ fun ProfileSection(avatar: ImageBitmap?, userProfile: UserProfile) {
             Spacer(modifier = Modifier.height(12.dp))
 
             Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
-                ProfileStat(title = "Beğeni", value = userProfile.likes.size)
-                ProfileStat(title = "Yıldız", value = userProfile.stars.size)
+                ProfileStat(
+                    title = stringResource(R.string.stat_likes),
+                    value = userProfile.likes.size
+                )
+                ProfileStat(
+                    title = stringResource(R.string.stat_stars),
+                    value = userProfile.stars.size
+                )
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = "Katıldı: ${userProfile.joinedDate}",
+                text = "${stringResource(R.string.profile_joined_date)}: ${userProfile.joinedDate}",
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -246,7 +253,7 @@ fun EditProfileButton(onClick: () -> Unit) {
         contentPadding = PaddingValues(0.dp)
     ) {
         Text(
-            text = "Profili Düzenle",
+            text = stringResource(R.string.edit_profile),
             letterSpacing = 3.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
@@ -321,14 +328,14 @@ fun FoodCardWithActions(
                     IconButton(onClick = { onLikeClick(food.id) }) {
                         Icon(
                             imageVector = Icons.Default.Favorite,
-                            contentDescription = "Beğen",
+                            contentDescription = stringResource(R.string.like_button),
                             tint = Color.Red
                         )
                     }
                     IconButton(onClick = { onStarClick(food.id) }) {
                         Icon(
                             imageVector = Icons.Default.Star,
-                            contentDescription = "Yıldızla",
+                            contentDescription = stringResource(R.string.star_button),
                             tint = Color.Yellow
                         )
                     }

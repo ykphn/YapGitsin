@@ -2,7 +2,11 @@ package com.ykphn.yapgitsin.presentation.main.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -10,13 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
+import com.ykphn.yapgitsin.R
 import com.ykphn.yapgitsin.core.model.UiState
 import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
 import com.ykphn.yapgitsin.presentation.common.screens.ErrorScreen
@@ -68,23 +75,40 @@ fun ReceiptSuccessScreen(
             .padding(16.dp)
     ) {
         item {
-            AsyncImage(
-                model = recipe.imageUrl,
-                contentDescription = "Food image",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-                    .padding(bottom = 16.dp)
-            )
+            Box {
+                AsyncImage(
+                    model = recipe.imageUrl,
+                    contentDescription = stringResource(R.string.food_image),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(220.dp)
+                        .padding(bottom = 16.dp)
+                )
+
+                IconButton(
+                    onClick = { /* viewModel.toggleSaved(recipe.id) */ },
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(12.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = stringResource(R.string.star_button),
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+
+
             Text(
-                text = "Hazırlanış",
+                text = stringResource(R.string.instructions),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             Text(
-                text = recipe.instructions ?: "",
+                text = recipe.instructions ?: stringResource(R.string.empty_string),
                 fontSize = 12.sp,
                 letterSpacing = 1.sp,
                 lineHeight = 16.sp,
@@ -92,13 +116,13 @@ fun ReceiptSuccessScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Malzemeler",
+                text = stringResource(R.string.ingredients),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
-            FlowRow (
-                maxItemsInEachRow = 2, // aynı satırda 2 kart
+            FlowRow(
+                maxItemsInEachRow = 2,
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier
@@ -109,8 +133,7 @@ fun ReceiptSuccessScreen(
                     OutlinedCard(
                         modifier = Modifier
                             .weight(1f)
-                            .height(80.dp)
-                            .padding(0.dp),
+                            .height(80.dp),
                         elevation = CardDefaults.cardElevation(2.dp)
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {

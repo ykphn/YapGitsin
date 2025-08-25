@@ -22,8 +22,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ykphn.yapgitsin.R
 
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
@@ -59,7 +61,7 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
             }
 
             Text(
-                text = "Yükleniyor",
+                text = stringResource(id = R.string.loading_text),
                 fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.alpha(alpha)

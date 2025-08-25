@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -27,18 +28,18 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.network_error),
-            contentDescription = "Network Error"
+            contentDescription = stringResource(id = R.string.network_error_content_description)
         )
         Spacer(modifier.padding(32.dp))
         Text(
-            text = "Bir sorun ile karşılaştık!",
+            text = stringResource(id = R.string.error_title),
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
         )
         Spacer(modifier.padding(8.dp))
         Text(
-            text = "İnternet bağlantınızı kontrol edip tekrar deneyebilirsiniz.",
+            text = stringResource(id = R.string.error_description),
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Center,

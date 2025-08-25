@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,6 +40,7 @@ import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.ykphn.yapgitsin.R
 import com.ykphn.yapgitsin.core.model.UiState
 import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
 import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
@@ -167,7 +169,7 @@ fun CategorySelector(
                     .clickable { allCategorySelected() }
                     .padding(horizontal = 16.dp, vertical = 8.dp)) {
                 Text(
-                    text = "Hepsi",
+                    text = stringResource(R.string.all),
                     color = contentColor,
                     style = MaterialTheme.typography.bodyMedium
                 )
