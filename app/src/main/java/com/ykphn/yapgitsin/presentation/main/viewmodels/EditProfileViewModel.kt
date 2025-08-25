@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ykphn.yapgitsin.R
 import com.ykphn.yapgitsin.core.domain.repository.BucketsRepository
 import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
 import com.ykphn.yapgitsin.core.model.UiState
@@ -65,20 +66,20 @@ class EditProfileViewModel @Inject constructor(
                     step = EditProfileStep.INFO
                 }.onFailure {
                     _uiState.value = UiState.Idle
-                    errorMessage = "Profil fotoğrafı güncellenirken hata oluştu."
+                    errorMessage = context.getString(R.string.error_avatar_upload)
                 }
 
             }
         } ?: run {
-            errorMessage = "Lütfen bir resim seçiniz"
+            errorMessage = context.getString(R.string.error_select_image)
         }
     }
 
 
-    fun updateProfileField() {
+    fun updateProfileField(context: Context) {
         when {
-            name.isBlank() -> errorMessage = "İsim ve soyisim alanı boş bırakılamaz"
-            bio.isBlank() -> errorMessage = "Biyografi alanı boş bırakılamaz"
+            name.isBlank() -> errorMessage = context.getString(R.string.error_name_empty)
+            bio.isBlank() -> errorMessage = context.getString(R.string.error_bio_empty)
             else -> {
                 viewModelScope.launch {
                     _uiState.value = UiState.Loading
@@ -86,7 +87,7 @@ class EditProfileViewModel @Inject constructor(
                         _uiState.value = UiState.Success
                     }.onFailure {
                         _uiState.value = UiState.Idle
-                        errorMessage = "Profil güncellenirken hata oluştu."
+                        errorMessage = context.getString(R.string.error_profile_update)
                     }
                 }
             }

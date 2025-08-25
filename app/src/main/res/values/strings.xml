@@ -48,7 +48,7 @@
     <string name="profile_default_name">Adın mı kayıp?</string>
     <string name="profile_joined_date">Katıldı</string>
     <string name="stat_stars">Yıldız</string>
-    <string name="starred">Yıldızlılar</string>
+    <string name="starred">Favori Yemekler</string>
     <string name="star_button">Yıldızla</string>
     <string name="user_avatar">Kullanıcı Avatarı</string>
     <string name="default_avatar">Varsayılan Avatar</string>
@@ -57,6 +57,28 @@
     <string name="food_image">Yemek resmi</string>
     <string name="instructions">Hazırlanış</string>
     <string name="ingredients">Malzemeler</string>
+
+    <!-- Edit Profile Screen Strings -->
+    <string name="error_avatar_upload">Profil fotoğrafı güncellenirken hata oluştu.</string>
+    <string name="error_select_image">Lütfen bir resim seçiniz</string>
+    <string name="error_name_empty">İsim ve soyisim alanı boş bırakılamaz</string>
+    <string name="error_bio_empty">Biyografi alanı boş bırakılamaz</string>
+    <string name="error_profile_update">Profil güncellenirken hata oluştu.</string>
+    <string name="error_generic">Bir hata oluştu. Daha sonra tekrar deneyiniz.</string>
+    <string name="profile_update_success">Profil başarıyla güncellendi</string>
+    <string name="fill_all_fields">Lütfen tüm kutuları doldurun</string>
+    <string name="add_photo">Fotoğraf Ekle</string>
+    <string name="continue_button">Devam Et</string>
+    <string name="name_surname">Ad Soyad</string>
+    <string name="about">Hakkında</string>
+    <string name="back">Geri</string>
+    <string name="save">Kaydet</string>
+
+    <!-- Appbar Strings -->
+    <string name="app_slogan">Anneye sorma artık, bak gitsin</string>
+    <string name="profile">Profil</string>
+    <string name="food">Yemek</string>
+    <string name="logout">Çıkış Yap</string>
 
     <!-- Common Screen Strings -->
     <string name="error_title">Bir sorun ile karşılaştık!</string>

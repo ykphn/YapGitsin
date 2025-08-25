@@ -48,7 +48,7 @@
     <string name="profile_default_name">Is your name missing?</string>
     <string name="profile_joined_date">Joined: %1$s</string>
     <string name="stat_stars">Stars</string>
-    <string name="starred">Starred</string>
+    <string name="starred">Favorites Foods</string>
     <string name="star_button">Star</string>
     <string name="user_avatar">User Avatar</string>
     <string name="default_avatar">Default Avatar</string>
@@ -57,6 +57,28 @@
     <string name="food_image">Food image</string>
     <string name="instructions">Instructions</string>
     <string name="ingredients">Ingredients</string>
+
+    <!-- Edit Profile Screen Strings -->
+    <string name="error_avatar_upload">An error occurred while updating the profile picture.</string>
+    <string name="error_select_image">Please select an image</string>
+    <string name="error_name_empty">Name field cannot be empty</string>
+    <string name="error_bio_empty">Biography field cannot be empty</string>
+    <string name="error_profile_update">An error occurred while updating the profile.</string>
+    <string name="error_generic">An error occurred. Please try again later.</string>
+    <string name="profile_update_success">Profile updated successfully</string>
+    <string name="fill_all_fields">Please fill in all fields</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="continue_button">Continue</string>
+    <string name="name_surname">Name Surname</string>
+    <string name="about">About</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+
+    <!-- Appbar Strings -->
+    <string name="app_slogan">Don’t ask mom anymore, just go</string>
+    <string name="profile">Profile</string>
+    <string name="food">Food</string>
+    <string name="logout">Logout</string>
 
     <!-- Common Screen Strings -->
     <string name="error_title">We encountered a problem!</string>

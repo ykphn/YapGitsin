@@ -105,7 +105,16 @@ fun ProfileSuccessScreen(
         )
         Spacer(modifier = Modifier.height(12.dp))
         EditProfileButton(onClick = editButtonClicked)
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
+        if (favorites.isNotEmpty())
+            Text(
+                text = stringResource(R.string.starred),
+                fontWeight = FontWeight.Black,
+                letterSpacing = 2.sp,
+                textAlign = TextAlign.Center
+            )
+
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier.fillMaxSize(),

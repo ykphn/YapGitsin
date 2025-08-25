@@ -30,10 +30,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ykphn.yapgitsin.R
 import com.ykphn.yapgitsin.presentation.main.models.SidebarItem
 
 @Composable
@@ -55,19 +57,14 @@ fun Sidebar(
             items = listOf(
                 SidebarItem(
                     id = "profile",
-                    title = "Profile",
-                    contentDescription = "Profile",
+                    title = stringResource(R.string.profile),
+                    contentDescription = stringResource(R.string.profile),
                     icon = Icons.Default.AccountCircle
                 ), SidebarItem(
                     id = "food",
-                    title = "Food",
-                    contentDescription = "Food",
+                    title = stringResource(R.string.food),
+                    contentDescription = stringResource(R.string.food),
                     icon = Icons.Default.ShoppingCart
-                ), SidebarItem(
-                    id = "receipt/1",
-                    title = "Receipt",
-                    contentDescription = "Receipt",
-                    icon = Icons.Default.DateRange
                 )
             ), onItemClick = { item ->
                 onNavigate(item.id)
@@ -125,14 +122,14 @@ fun SidebarHeader(
     ) {
         Column {
             Text(
-                text = "Yap Gitsin",
+                text = stringResource(R.string.app_name),
                 letterSpacing = 3.sp,
                 style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Companion.Bold),
                 color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.Companion.height(8.dp))
             Text(
-                text = "Anneye sorma artık, bak gitsin",
+                text = stringResource(R.string.app_slogan),
                 style = MaterialTheme.typography.labelMedium.copy(fontStyle = FontStyle.Companion.Italic),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -162,12 +159,12 @@ fun SidebarLogout(
         Row(verticalAlignment = Alignment.Companion.CenterVertically) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ExitToApp,
-                contentDescription = "Çıkış Yap",
+                contentDescription = stringResource(R.string.logout),
                 tint = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.Companion.width(12.dp))
             Text(
-                text = "Çıkış Yap",
+                text = stringResource(R.string.logout),
                 letterSpacing = 1.sp,
                 style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Companion.Bold),
                 color = MaterialTheme.colorScheme.primary

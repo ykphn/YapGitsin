@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
+import com.ykphn.yapgitsin.R
 import com.ykphn.yapgitsin.core.model.UiState
 import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
 import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
@@ -54,7 +56,7 @@ fun EditProfileScreen(
         UiState.Error -> {
             Toast.makeText(
                 context,
-                "Bir hata oluştu. Daha sonra tekrar deneyiniz.",
+                stringResource(R.string.error_generic),
                 Toast.LENGTH_LONG
             ).show()
             navController.popBackStack()
@@ -82,7 +84,11 @@ fun EditProfileScreen(
         }
 
         UiState.Success -> {
-            Toast.makeText(context, "Profil başarıyla güncellendi", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                stringResource(R.string.profile_update_success),
+                Toast.LENGTH_LONG
+            ).show()
             navController.navigate("profile")
         }
     }
@@ -103,10 +109,10 @@ fun SetupScreen(
     onBioChange: (String) -> Unit,
     onBackClick: () -> Unit,
     onUpdateAvatarClick: (Context) -> Unit,
-    onUpdateProfileClick: () -> Unit
+    onUpdateProfileClick: (Context) -> Unit
 ) {
 
-    Column (
+    Column(
         modifier = modifier.fillMaxSize()
     ) {
         Box(
@@ -116,13 +122,14 @@ fun SetupScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = error ?: "Lütfen tüm kutuları doldurun",
+                text = error ?: stringResource(R.string.fill_all_fields),
                 color = error?.let { Color.Red } ?: Color.Blue,
                 textAlign = TextAlign.Center,
                 letterSpacing = 1.sp,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
+
         }
 
         when (step) {
@@ -138,7 +145,7 @@ fun SetupScreen(
                 onNameChange = onNameChange,
                 onBioChange = onBioChange,
                 onBack = onBackClick,
-                onFinish = { onUpdateProfileClick() }
+                onFinish = { onUpdateProfileClick(context) }
             )
         }
     }
@@ -173,12 +180,12 @@ fun PhotoStep(
             if (photoUri != null) {
                 AsyncImage(
                     model = photoUri,
-                    contentDescription = "Profile Photo",
+                    contentDescription = stringResource(R.string.add_photo),
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
             } else {
-                Text("Fotoğraf Ekle")
+                Text(stringResource(R.string.add_photo))
             }
         }
 
@@ -188,7 +195,7 @@ fun PhotoStep(
                 .fillMaxWidth()
                 .padding(top = 24.dp)
         ) {
-            Text("Devam Et")
+            Text(stringResource(R.string.continue_button))
         }
     }
 }
@@ -212,7 +219,7 @@ fun InfoStep(
         OutlinedTextField(
             value = name,
             onValueChange = onNameChange,
-            label = { Text("Ad Soyad") },
+            label = { Text(stringResource(R.string.name_surname)) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -220,7 +227,7 @@ fun InfoStep(
         OutlinedTextField(
             value = bio,
             onValueChange = onBioChange,
-            label = { Text("Hakkında") },
+            label = { Text(stringResource(R.string.about)) },
             maxLines = 5,
             modifier = Modifier
                 .fillMaxWidth()
@@ -229,10 +236,10 @@ fun InfoStep(
 
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = onBack, modifier = Modifier.weight(1f)) {
-                Text("Geri")
+                Text(stringResource(R.string.back))
             }
             Button(onClick = onFinish, modifier = Modifier.weight(1f)) {
-                Text("Kaydet")
+                Text(stringResource(R.string.save))
             }
         }
     }
