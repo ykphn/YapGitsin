@@ -9,7 +9,6 @@ data class ProfileResponse(
     val name: String?,
     val username: String,
     val bio: String?,
-    val likes: List<Int>,
     val stars: List<Int>,
     @SerialName("last_signin")
     val lastSignIn: String,

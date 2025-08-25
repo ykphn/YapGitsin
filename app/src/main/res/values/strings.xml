@@ -47,11 +47,8 @@
     <string name="edit_profile">Profili Düzenle</string>
     <string name="profile_default_name">Adın mı kayıp?</string>
     <string name="profile_joined_date">Katıldı</string>
-    <string name="stat_likes">Beğeni</string>
     <string name="stat_stars">Yıldız</string>
-    <string name="favorites">Favoriler</string>
     <string name="starred">Yıldızlılar</string>
-    <string name="like_button">Beğen</string>
     <string name="star_button">Yıldızla</string>
     <string name="user_avatar">Kullanıcı Avatarı</string>
     <string name="default_avatar">Varsayılan Avatar</string>

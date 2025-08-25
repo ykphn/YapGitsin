@@ -13,21 +13,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -35,10 +29,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -47,14 +39,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.ykphn.yapgitsin.R
 import com.ykphn.yapgitsin.core.model.UiState
 import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
 import com.ykphn.yapgitsin.presentation.common.screens.ErrorScreen
 import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
+import com.ykphn.yapgitsin.presentation.main.components.FoodCard
 import com.ykphn.yapgitsin.presentation.main.models.Meal
 import com.ykphn.yapgitsin.presentation.main.viewmodels.ProfileViewModel
 import com.ykphn.yapgitsin.presentation.main.models.UserProfile
@@ -80,11 +70,12 @@ fun ProfileScreen(
                     userAvatar = avatar,
                     userData = userData!!,
                     favorites = favorites,
-                    buttonClicked = {
+                    editButtonClicked = {
                         navController.navigate("edit") {
                             popUpTo("food") { inclusive = false }
                         }
-                    }
+                    },
+                    mealCardClicked = { id -> navController.navigate("receipt/$id") }
                 )
             }
         }
@@ -99,11 +90,12 @@ fun ProfileSuccessScreen(
     userAvatar: ImageBitmap?,
     userData: UserProfile,
     favorites: List<Meal>,
-    buttonClicked: () -> Unit
+    editButtonClicked: () -> Unit,
+    mealCardClicked: (String) -> Unit
 ) {
     Column(
         modifier = modifier
-            .padding(24.dp)
+            .padding(top = 24.dp, end = 16.dp, bottom = 0.dp, start = 16.dp)
     ) {
         ProfileIncompleteCard(status = userData.fullName)
         ProfileSection(userAvatar, userData)
@@ -112,21 +104,22 @@ fun ProfileSuccessScreen(
             style = MaterialTheme.typography.bodyMedium
         )
         Spacer(modifier = Modifier.height(12.dp))
-        EditProfileButton(onClick = buttonClicked)
-        FoodCardWithActions(
-            title = stringResource(R.string.favorites),
-            meals = favorites,
-            onClick = {},
-            onLikeClick = {},
-            onStarClick = {}
-        )
-        FoodCardWithActions(
-            title = stringResource(R.string.starred),
-            meals = favorites,
-            onClick = {},
-            onLikeClick = {},
-            onStarClick = {}
-        )
+        EditProfileButton(onClick = editButtonClicked)
+        Spacer(modifier = Modifier.height(8.dp))
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(favorites) { meal ->
+                FoodCard(
+                    meal = meal,
+                    onClick = { mealCardClicked(meal.id) }
+                )
+            }
+        }
     }
 }
 
@@ -208,16 +201,10 @@ fun ProfileSection(avatar: ImageBitmap?, userProfile: UserProfile) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
-                ProfileStat(
-                    title = stringResource(R.string.stat_likes),
-                    value = userProfile.likes.size
-                )
-                ProfileStat(
-                    title = stringResource(R.string.stat_stars),
-                    value = userProfile.stars.size
-                )
-            }
+            ProfileStat(
+                title = stringResource(R.string.stat_stars),
+                value = userProfile.stars.size
+            )
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -262,91 +249,5 @@ fun EditProfileButton(onClick: () -> Unit) {
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
-    }
-}
-
-@Composable
-fun FoodCardWithActions(
-    modifier: Modifier = Modifier,
-    title: String,
-    meals: List<Meal>,
-    onClick: (String) -> Unit,
-    onLikeClick: (String) -> Unit,
-    onStarClick: (String) -> Unit
-) {
-    Text(
-        modifier = Modifier
-            .padding(top = 16.dp)
-            .fillMaxWidth(),
-        text = title,
-        fontWeight = FontWeight.Bold,
-        textAlign = TextAlign.Center,
-        fontSize = 16.sp,
-        letterSpacing = 2.sp,
-        color = MaterialTheme.colorScheme.onBackground
-    )
-    LazyRow(
-        modifier = modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        item { }
-        items(meals) { food ->
-            OutlinedCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(180.dp),
-                elevation = CardDefaults.cardElevation(2.dp),
-                shape = RoundedCornerShape(16.dp),
-                onClick = { onClick(food.id) }
-            ) {
-                val request = ImageRequest.Builder(LocalContext.current)
-                    .data(food.imageUrl)
-                    .crossfade(true)
-                    .build()
-
-                AsyncImage(
-                    model = request,
-                    contentDescription = food.name,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(90.dp)
-                        .align(Alignment.CenterHorizontally)
-                        .clip(RoundedCornerShape(12.dp))
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = food.name,
-                    style = MaterialTheme.typography.titleMedium,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-
-                // Alt kısım: Beğeni ve yıldız
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    IconButton(onClick = { onLikeClick(food.id) }) {
-                        Icon(
-                            imageVector = Icons.Default.Favorite,
-                            contentDescription = stringResource(R.string.like_button),
-                            tint = Color.Red
-                        )
-                    }
-                    IconButton(onClick = { onStarClick(food.id) }) {
-                        Icon(
-                            imageVector = Icons.Default.Star,
-                            contentDescription = stringResource(R.string.star_button),
-                            tint = Color.Yellow
-                        )
-                    }
-                }
-            }
-        }
-        item { }
-
     }
 }

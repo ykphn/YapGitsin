@@ -47,11 +47,8 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="profile_default_name">Is your name missing?</string>
     <string name="profile_joined_date">Joined: %1$s</string>
-    <string name="stat_likes">Likes</string>
     <string name="stat_stars">Stars</string>
-    <string name="favorites">Favorites</string>
     <string name="starred">Starred</string>
-    <string name="like_button">Like</string>
     <string name="star_button">Star</string>
     <string name="user_avatar">User Avatar</string>
     <string name="default_avatar">Default Avatar</string>

@@ -1,6 +1,5 @@
 package com.ykphn.yapgitsin.presentation.main.viewmodels
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.domain.repository.BucketsRepository
 import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
+import com.ykphn.yapgitsin.core.domain.repository.MealRepository
 import com.ykphn.yapgitsin.core.model.UiState
 import com.ykphn.yapgitsin.presentation.main.models.Meal
 import com.ykphn.yapgitsin.presentation.main.models.UserProfile
@@ -22,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val databaseRepository: DatabaseRepository,
-    private val bucketsRepository: BucketsRepository
+    private val bucketsRepository: BucketsRepository,
+    private val mealRepository: MealRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
@@ -42,6 +43,7 @@ class ProfileViewModel @Inject constructor(
             _uiState.value = UiState.Loading
             val profileResult = getUserProfile()
             getUserAvatar()
+            getFavoriteFoods()
 
             if (profileResult) {
                 _uiState.value = UiState.Success
@@ -49,6 +51,14 @@ class ProfileViewModel @Inject constructor(
                 _uiState.value = UiState.Error
             }
         }
+    }
+
+    private suspend fun getUserAvatar() {
+        bucketsRepository.getUserAvatar()
+            .onSuccess {
+                _userAvatar.value = null
+                _userAvatar.value = it
+            }
     }
 
     private suspend fun getUserProfile(): Boolean {
@@ -59,19 +69,34 @@ class ProfileViewModel @Inject constructor(
                 username = profile.username,
                 bio = profile.bio,
                 joinedDate = profile.createdAt,
-                likes = profile.likes,
                 stars = profile.stars
             )
-        }.onFailure {
-            Log.d("ProfileViewModel", "getUserProfile: ${it.message}")
         }.isSuccess
     }
 
-    private suspend fun getUserAvatar() {
-        bucketsRepository.getUserAvatar()
-            .onSuccess {
-                _userAvatar.value = null
-                _userAvatar.value = it
+    private suspend fun getFavoriteFoods(): Boolean {
+        return try {
+            val allFavorites = mutableListOf<Meal>()
+            _profileData.value?.stars?.forEach { mealId ->
+                val result = mealRepository.getMealById(mealId.toString())
+                result.onSuccess { data ->
+                    val mappedMeals = data.meals.map { dto ->
+                        Meal(
+                            id = dto.idMeal,
+                            categoryId = dto.strCategory ?: "",
+                            name = dto.strMeal,
+                            imageUrl = dto.strMealThumb ?: ""
+                        )
+                    }
+                    allFavorites.addAll(mappedMeals)
+                    favorites = allFavorites.toList()
+                }
             }
+
+            true
+        } catch (_: Exception) {
+            false
+        }
     }
+
 }
