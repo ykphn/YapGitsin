@@ -50,6 +50,6 @@ YapGitsin, kullanıcıların çeşitli yemek tariflerini keşfetmelerini ve favo
 - **Kotlin**  
 - **Jetpack Compose**  
 - **MVVM Mimarisi**  
-- **Hilt**  
-- **Hilt Navigation**  
-- **Supabase**
+- **Hilt** (Dependency Injection)  
+- **Jetpack Navigation** (Compose için ekranlar arası geçiş)  
+- **Supabase** (Backend ve veri yönetimi) 
