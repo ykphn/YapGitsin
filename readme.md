@@ -16,15 +16,15 @@ YapGitsin, kullanıcıların çeşitli yemek tariflerini keşfetmelerini ve favo
 
 <table>
   <tr>
-    <td><img src="screenshots/light/login.png" width="200"/><br>Giriş</td>
-    <td><img src="screenshots/light/register.png" width="200"/><br>Kayıt</td>
-    <td><img src="screenshots/light/forgot.png" width="200"/><br>Şifre Sıfırlama</td>
+    <td><img src="screenshots/light/login.png" width="180"/><br>Giriş</td>
+    <td><img src="screenshots/light/register.png" width="180"/><br>Kayıt</td>
+    <td><img src="screenshots/light/forgot.png" width="180"/><br>Şifre Sıfırlama</td>
   </tr>
   <tr>
-    <td><img src="screenshots/light/profile.png" width="200"/><br>Profil</td>
-    <td><img src="screenshots/light/meals.png" width="200"/><br>Yemekler</td>
-    <td><img src="screenshots/light/filter.png" width="200"/><br>Filtreleme</td>
-    <td><img src="screenshots/light/details.png" width="200"/><br>Detay</td>
+    <td><img src="screenshots/light/profile.png" width="180"/><br>Profil</td>
+    <td><img src="screenshots/light/meals.png" width="180"/><br>Yemekler</td>
+    <td><img src="screenshots/light/filter.png" width="180"/><br>Filtreleme</td>
+    <td><img src="screenshots/light/details.png" width="180"/><br>Detay</td>
   </tr>
 </table>
 
@@ -32,15 +32,15 @@ YapGitsin, kullanıcıların çeşitli yemek tariflerini keşfetmelerini ve favo
 
 <table>
   <tr>
-    <td><img src="screenshots/dark/login.png" width="200"/><br>Giriş</td>
-    <td><img src="screenshots/dark/register.png" width="200"/><br>Kayıt</td>
-    <td><img src="screenshots/dark/forgot.png" width="200"/><br>Şifre Sıfırlama</td>
+    <td><img src="screenshots/dark/login.png" width="180"/><br>Giriş</td>
+    <td><img src="screenshots/dark/register.png" width="180"/><br>Kayıt</td>
+    <td><img src="screenshots/dark/forgot.png" width="180"/><br>Şifre Sıfırlama</td>
   </tr>
   <tr>
-    <td><img src="screenshots/dark/profile.png" width="200"/><br>Profil</td>
-    <td><img src="screenshots/dark/meals.png" width="200"/><br>Yemekler</td>
-    <td><img src="screenshots/dark/filter.png" width="200"/><br>Filtreleme</td>
-    <td><img src="screenshots/dark/details.png" width="200"/><br>Detay</td>
+    <td><img src="screenshots/dark/profile.png" width="180"/><br>Profil</td>
+    <td><img src="screenshots/dark/meals.png" width="180"/><br>Yemekler</td>
+    <td><img src="screenshots/dark/filter.png" width="180"/><br>Filtreleme</td>
+    <td><img src="screenshots/dark/details.png" width="180"/><br>Detay</td>
   </tr>
 </table>
 
