@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -102,7 +103,8 @@ fun LoginScreen(
                 error = viewModel.errorMessage,
                 onEmailChange = viewModel::updateEmail,
                 onPasswordChange = viewModel::updatePassword,
-                onLoginClick = viewModel::onLoginClick,
+                onLoginClick = { viewModel.onLoginClick(context) },
+                onForgetPasswordClick = { navController.navigate("forgot") }
             )
 
             SocialLoginRow(onAppleClick = { }, onFacebookClick = { }, onGmailClick = { })
@@ -155,7 +157,8 @@ fun LoginForm(
     error: String?,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onLoginClick: () -> Unit
+    onLoginClick: () -> Unit,
+    onForgetPasswordClick: () -> Unit
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
 
@@ -192,12 +195,12 @@ fun LoginForm(
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = error ?: stringResource(R.string.empty_string),
-            color = Color.Red,
+            color = MaterialTheme.colorScheme.error,
             fontSize = 12.sp,
             letterSpacing = 1.sp,
             fontWeight = FontWeight.Bold
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Button(
             onClick = { onLoginClick() },
             modifier = Modifier
@@ -208,6 +211,18 @@ fun LoginForm(
                 text = stringResource(R.string.login_button),
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
+            )
+        }
+        Spacer(modifier = Modifier.height(4.dp))
+        Row(modifier = modifier) {
+            Text(text = stringResource(R.string.reset_password_prefix), letterSpacing = 0.sp)
+            Spacer(modifier = Modifier.width(5.dp))
+            Text(
+                text = stringResource(R.string.reset_password_action),
+                letterSpacing = 0.sp,
+                modifier = Modifier.clickable { onForgetPasswordClick() },
+                color = MaterialTheme.colorScheme.primary,
+                textDecoration = TextDecoration.Underline
             )
         }
     }
@@ -253,7 +268,7 @@ fun SignUpRow(
             text = stringResource(R.string.signup_clickable),
             letterSpacing = 1.sp,
             modifier = Modifier.clickable { onSignUpClick() },
-            color = Color.Blue,
+            color = MaterialTheme.colorScheme.primary,
             textDecoration = TextDecoration.Underline
         )
     }

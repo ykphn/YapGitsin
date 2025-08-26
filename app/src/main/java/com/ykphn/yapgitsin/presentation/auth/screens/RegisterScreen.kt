@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -94,7 +95,7 @@ fun RegisterScreen(
                 setEmail = viewModel::updateEmail,
                 setPassword = viewModel::updatePassword,
                 setRepeatPassword = viewModel::updateRepeatPassword,
-                onRegisterClick = viewModel::onLoginClick
+                onRegisterClick = { viewModel.onLoginClick(context) }
             )
 
             RegisterSignInRow(onSignInClick = { navController.navigate("login") })
@@ -211,7 +212,7 @@ fun RegisterForm(
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = errorMessage.orEmpty(),
-            color = Color.Red,
+            color = MaterialTheme.colorScheme.error,
             fontSize = 12.sp,
             letterSpacing = 1.sp,
             fontWeight = FontWeight.Bold
@@ -242,7 +243,7 @@ fun RegisterSignInRow(
             text = stringResource(R.string.register_signin_clickable),
             letterSpacing = 1.sp,
             modifier = Modifier.clickable { onSignInClick() },
-            color = Color.Blue,
+            color = MaterialTheme.colorScheme.primary,
             textDecoration = TextDecoration.Underline
         )
     }

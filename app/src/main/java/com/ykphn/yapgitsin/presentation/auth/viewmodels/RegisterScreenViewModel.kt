@@ -1,10 +1,12 @@
 package com.ykphn.yapgitsin.presentation.auth.viewmodels
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ykphn.yapgitsin.R
 import com.ykphn.yapgitsin.core.domain.repository.AuthRepository
 import com.ykphn.yapgitsin.presentation.auth.state.AuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,20 +58,20 @@ class RegisterScreenViewModel @Inject constructor(
         errorMessage = null
     }
 
-    fun onLoginClick() {
-        if (password != passwordRepeat) errorMessage = "Şifreler uyuşmuyor!"
+    fun onLoginClick(context: Context) {
+        if (password != passwordRepeat) errorMessage = context.getString(R.string.error_password_mismatch)
         else
             when {
-                username.isBlank() -> errorMessage = "Kullanıcı adı boş bırakılamaz!"
-                email.isBlank() -> errorMessage = "Mail adresi boş bırakılamaz!"
-                password.isBlank() -> errorMessage = "Şifre alanı boş bırakılamaz!"
-                passwordRepeat.isBlank() -> errorMessage = "Şifre alanı boş bırakılamaz!"
-                else -> registerUserAccount(username, email, password)
+                username.isBlank() -> errorMessage = context.getString(R.string.error_username_empty)
+                email.isBlank() -> errorMessage = context.getString(R.string.error_email_empty)
+                password.isBlank() -> errorMessage = context.getString(R.string.error_password_empty)
+                passwordRepeat.isBlank() -> errorMessage = context.getString(R.string.error_password_empty)
+                else -> registerUserAccount(context)
             }
     }
 
     // Function to handle user registration
-    private fun registerUserAccount(username: String, email: String, password: String) {
+    private fun registerUserAccount(context: Context) {
         viewModelScope.launch {
             _signUpState.value = AuthState.Loading
             authRepository.register(
@@ -81,10 +83,10 @@ class RegisterScreenViewModel @Inject constructor(
             }.onFailure { exception ->
                 val errorMessage = exception.message.orEmpty().lowercase()
                 when {
-                    "email" in errorMessage -> _signUpState.value = AuthState.Error("Invalid MAIL!")
+                    "email" in errorMessage -> _signUpState.value = AuthState.Error(context.getString(R.string.error_invalid_email))
                     "password" in errorMessage -> _signUpState.value =
-                        AuthState.Error("Invalid PASSWORD!")
-                    else -> _signUpState.value = AuthState.Error("General ERROR")
+                        AuthState.Error(context.getString(R.string.error_invalid_password))
+                    else -> _signUpState.value = AuthState.Error(context.getString(R.string.error_general))
                 }
             }
         }

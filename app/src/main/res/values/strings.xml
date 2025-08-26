@@ -17,6 +17,9 @@
     <string name="back_to_login_prefix">Giriş ekranına dönmek için</string>
     <string name="back_to_login_clickable">Tıklayın</string>
     <string name="forgot_password_image_desc">Şifre Sıfırlama Görseli</string>
+    <string name="reset_password_error">Bir hata oluştu. Lütfen tekrar dene.</string>
+    <string name="reset_password_success">Sıfırlama bağlantısı e-posta adresine gönderildi.</string>
+    <string name="reset_password_invalid_email">Lütfen geçerli bir e-posta adresi gir.</string>
 
     <!-- Login Screen Strings -->
     <string name="login_greeting">Merhabalar</string>
@@ -79,6 +82,19 @@
     <string name="profile">Profil</string>
     <string name="food">Yemek</string>
     <string name="logout">Çıkış Yap</string>
+
+    <!-- Login & Register Validation Errors -->
+    <string name="error_email_empty">Mail adresi boş bırakılamaz!</string>
+    <string name="error_password_empty">Şifre alanı boş bırakılamaz!</string>
+    <string name="error_password_mismatch">Şifreler uyuşmuyor!</string>
+    <string name="error_username_empty">Kullanıcı adı boş bırakılamaz!</string>
+    <string name="error_general">Bir hata oluştu</string>
+    <string name="reset_password_prefix">Şifreni mi unuttun?</string>
+    <string name="reset_password_action">Hemen sıfırla</string>
+
+    <!-- Auth Specific Errors -->
+    <string name="error_invalid_email">Geçersiz e-posta!</string>
+    <string name="error_invalid_password">Geçersiz şifre!</string>
 
     <!-- Common Screen Strings -->
     <string name="error_title">Bir sorun ile karşılaştık!</string>

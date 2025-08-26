@@ -1,10 +1,12 @@
 package com.ykphn.yapgitsin.presentation.auth.viewmodels
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ykphn.yapgitsin.R
 import com.ykphn.yapgitsin.core.domain.repository.AuthRepository
 import com.ykphn.yapgitsin.presentation.auth.state.AuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,10 +43,10 @@ class LoginScreenViewModel @Inject constructor(
         errorMessage = null
     }
 
-    fun onLoginClick() {
+    fun onLoginClick(context: Context) {
         when {
-            email.isBlank() -> errorMessage = "Mail adresi boş bırakılamaz!"
-            password.isBlank() -> errorMessage = "Şifre alanı boş bırakılamaz!"
+            email.isBlank() -> errorMessage = context.getString(R.string.error_email_empty)
+            password.isBlank() -> errorMessage = context.getString(R.string.error_password_empty)
             else -> signIn()
         }
     }

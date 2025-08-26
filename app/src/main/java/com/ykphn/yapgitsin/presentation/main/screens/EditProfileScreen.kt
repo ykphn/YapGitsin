@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -123,7 +124,7 @@ fun SetupScreen(
         ) {
             Text(
                 text = error ?: stringResource(R.string.fill_all_fields),
-                color = error?.let { Color.Red } ?: Color.Blue,
+                color = error?.let { MaterialTheme.colorScheme.error } ?: MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center,
                 letterSpacing = 1.sp,
                 fontSize = 16.sp,
@@ -173,7 +174,7 @@ fun PhotoStep(
             modifier = Modifier
                 .aspectRatio(1f)
                 .clip(CircleShape)
-                .background(Color.LightGray)
+                .background(MaterialTheme.colorScheme.onSurfaceVariant)
                 .clickable { launcher.launch("image/*") },
             contentAlignment = Alignment.Center
         ) {

@@ -1,5 +1,6 @@
 package com.ykphn.yapgitsin.presentation.auth.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,7 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -18,36 +19,68 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.ykphn.yapgitsin.R
+import com.ykphn.yapgitsin.core.model.UiState
+import com.ykphn.yapgitsin.presentation.auth.viewmodels.ForgotPasswordViewModel
+import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
 
 @Composable
 fun ForgotPasswordScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavController
 ) {
-    var email by remember { mutableStateOf("") }
-    var isLoading by remember { mutableStateOf(false) }
 
-    Box(modifier = modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.SpaceEvenly,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            ForgotPasswordHeader()
+    val viewModel: ForgotPasswordViewModel = hiltViewModel()
+    val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
 
-            ForgotPasswordForm(email = email, onEmailChange = { email = it }, onResetClick = {})
-
-            BackToLoginRow { }
+    when (uiState) {
+        UiState.Error -> {
+            Toast.makeText(
+                context,
+                context.getString(R.string.reset_password_error),
+                Toast.LENGTH_SHORT
+            ).show()
+            viewModel.resetPage()
         }
 
-        if (isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
-            )
+        UiState.Idle -> {
+            Box(modifier = modifier.fillMaxSize()) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(24.dp),
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    ForgotPasswordHeader()
+
+                    ForgotPasswordForm(
+                        error = viewModel.errorMessage,
+                        email = viewModel.email,
+                        onEmailChange = { viewModel.updateEmail(it) },
+                        onResetClick = { viewModel.forgotPassword() }
+                    )
+
+                    BackToLoginRow { navController.navigate("login") }
+                }
+            }
+        }
+
+        UiState.Loading -> LoadingScreen()
+        UiState.Success -> {
+            Toast.makeText(
+                context,
+                context.getString(R.string.reset_password_success),
+                Toast.LENGTH_SHORT
+            ).show()
+            navController.navigate("login")
         }
     }
+
+
 }
 
 @Composable
@@ -81,6 +114,7 @@ fun ForgotPasswordHeader(modifier: Modifier = Modifier) {
 
 @Composable
 fun ForgotPasswordForm(
+    error: Boolean,
     email: String,
     onEmailChange: (String) -> Unit,
     onResetClick: () -> Unit,
@@ -98,6 +132,18 @@ fun ForgotPasswordForm(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
         )
         Spacer(modifier = Modifier.height(12.dp))
+
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = if (error) stringResource(R.string.reset_password_error)
+            else stringResource(R.string.empty_string),
+            color = MaterialTheme.colorScheme.error,
+            fontSize = 12.sp,
+            letterSpacing = 1.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+
         Button(
             onClick = onResetClick, modifier = Modifier
                 .fillMaxWidth()
@@ -123,7 +169,7 @@ fun BackToLoginRow(
             text = stringResource(R.string.back_to_login_clickable),
             letterSpacing = 1.sp,
             modifier = Modifier.clickable { onBackClick() },
-            color = Color.Blue,
+            color = MaterialTheme.colorScheme.primary,
             textDecoration = TextDecoration.Underline
         )
     }

@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.ykphn.yapgitsin.presentation.auth.screens.ForgotPasswordScreen
 import com.ykphn.yapgitsin.presentation.auth.screens.LoginScreen
 import com.ykphn.yapgitsin.presentation.auth.screens.RegisterScreen
 
@@ -27,7 +28,7 @@ fun AuthNavGraph(
         navigation(route = "auth", startDestination = "login") {
             composable("login") { LoginScreen(navController = navHostController) }
             composable("register") { RegisterScreen(navController = navHostController) }
-            composable("forgot") { }
+            composable("forgot") { ForgotPasswordScreen(navController = navHostController) }
         }
     }
 }
