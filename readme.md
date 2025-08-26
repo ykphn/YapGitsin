@@ -1,25 +1,55 @@
-# YapGitsin 🍔
+# YapGitsin - Mobil Uygulama
 
-YapGitsin, kullanıcıların kategorilere ayrılmış yemekleri keşfedebileceği modern bir yemek listeleme uygulamasıdır. MVVM mimarisiyle, Jetpack Compose kullanılarak geliştirilmiştir.
+YapGitsin, kullanıcıların çeşitli yemek tariflerini keşfetmelerini ve favori tariflerini kaydetmelerini sağlayan modern bir mobil uygulamadır. Android için geliştirilmiştir ve **Light / Dark** tema desteği ile **Türkçe ve İngilizce dil desteği** sunar.
 
-## ✨ Özellikler
+## Özellikler / Features
+- **Kullanıcı kimlik doğrulama**: Supabase Auth kullanılarak güvenli giriş ve kayıt sistemi  
+- **Şifre sıfırlama**: Supabase üzerinden e-posta ile şifre sıfırlama desteği  
+- **Tarif listesi ve filtreleme**: Meals API kullanılarak tariflerin çekilmesi ve kategori / malzeme bazlı filtreleme  
+- **Favorilere ekleme ve yönetim**: Kullanıcının favori tariflerini Supabase Storage veya veritabanında saklama  
+- **Profil yönetimi**: Kullanıcı bilgilerini görüntüleme ve güncelleme  
+- **Modern UI**: Jetpack Compose ile responsive ve reaktif kullanıcı arayüzü  
 
-- 📦 Supabase API üzerinden veri çekme
-- 🧭 MVVM mimarisi ile modüler yapı
-- 🧩 Kategori filtreleme ve çoklu seçim
-- 💬 Durum yönetimi (Loading, Success, Error)
-- 🎨 Jetpack Compose ile modern UI
+## Ekran Görüntüleri
 
-## 🛠️ Kullanılan Teknolojiler
+### Light Mod
 
-- **Kotlin**
-- **Jetpack Compose**
+<table>
+  <tr>
+    <td><img src="screenshots/light/login.png" width="200"/><br>Giriş</td>
+    <td><img src="screenshots/light/register.png" width="200"/><br>Kayıt</td>
+    <td><img src="screenshots/light/forgot.png" width="200"/><br>Şifre Sıfırlama</td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/light/profile.png" width="200"/><br>Profil</td>
+    <td><img src="screenshots/light/meals.png" width="200"/><br>Yemekler</td>
+    <td><img src="screenshots/light/filter.png" width="200"/><br>Filtreleme</td>
+    <td><img src="screenshots/light/details.png" width="200"/><br>Detay</td>
+  </tr>
+</table>
+
+### Dark Mod
+
+<table>
+  <tr>
+    <td><img src="screenshots/dark/login.png" width="200"/><br>Giriş</td>
+    <td><img src="screenshots/dark/register.png" width="200"/><br>Kayıt</td>
+    <td><img src="screenshots/dark/forgot.png" width="200"/><br>Şifre Sıfırlama</td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/dark/profile.png" width="200"/><br>Profil</td>
+    <td><img src="screenshots/dark/meals.png" width="200"/><br>Yemekler</td>
+    <td><img src="screenshots/dark/filter.png" width="200"/><br>Filtreleme</td>
+    <td><img src="screenshots/dark/details.png" width="200"/><br>Detay</td>
+  </tr>
+</table>
+
+
+
+## Teknolojiler / Technologies
+- **Kotlin**  
+- **Jetpack Compose**  
+- **MVVM Mimarisi**  
+- **Hilt**  
+- **Hilt Navigation**  
 - **Supabase**
-- **Retrofit + Gson**
-- **Coroutines**
-- **StateFlow / LiveData**
-- **Material 3**
-- **Dagger Hilt**
-- **Navigation Compose**
-
----
