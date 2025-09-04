@@ -10,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.R
 import com.ykphn.yapgitsin.core.domain.repository.BucketsRepository
 import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
-import com.ykphn.yapgitsin.core.model.UiState
+import com.ykphn.yapgitsin.core.state.UiState
 import com.ykphn.yapgitsin.presentation.main.models.EditProfileStep
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

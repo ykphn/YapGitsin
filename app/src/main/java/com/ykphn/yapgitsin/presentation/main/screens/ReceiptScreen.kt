@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
 import com.ykphn.yapgitsin.R
-import com.ykphn.yapgitsin.core.model.UiState
+import com.ykphn.yapgitsin.core.state.UiState
 import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
 import com.ykphn.yapgitsin.presentation.common.screens.ErrorScreen
 import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen

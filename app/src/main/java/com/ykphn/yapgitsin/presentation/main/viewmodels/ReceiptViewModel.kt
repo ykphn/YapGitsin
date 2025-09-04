@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
 import com.ykphn.yapgitsin.core.domain.repository.MealRepository
-import com.ykphn.yapgitsin.core.model.UiState
+import com.ykphn.yapgitsin.core.state.UiState
 import com.ykphn.yapgitsin.presentation.main.models.Recipe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

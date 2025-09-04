@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ykphn.yapgitsin.R
-import com.ykphn.yapgitsin.core.model.UiState
+import com.ykphn.yapgitsin.core.state.UiState
 import com.ykphn.yapgitsin.presentation.auth.viewmodels.ForgotPasswordViewModel
 import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
 

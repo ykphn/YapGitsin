@@ -26,7 +26,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -38,7 +37,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import com.ykphn.yapgitsin.R
-import com.ykphn.yapgitsin.core.model.UiState
+import com.ykphn.yapgitsin.core.state.UiState
 import com.ykphn.yapgitsin.presentation.common.screens.EmptyScreen
 import com.ykphn.yapgitsin.presentation.common.screens.LoadingScreen
 import com.ykphn.yapgitsin.presentation.main.models.EditProfileStep

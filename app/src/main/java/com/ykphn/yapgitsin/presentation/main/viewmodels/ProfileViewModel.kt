@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.ykphn.yapgitsin.core.domain.repository.BucketsRepository
 import com.ykphn.yapgitsin.core.domain.repository.DatabaseRepository
 import com.ykphn.yapgitsin.core.domain.repository.MealRepository
-import com.ykphn.yapgitsin.core.model.UiState
+import com.ykphn.yapgitsin.core.state.UiState
 import com.ykphn.yapgitsin.presentation.main.models.Meal
 import com.ykphn.yapgitsin.presentation.main.models.UserProfile
 import dagger.hilt.android.lifecycle.HiltViewModel
